@@ -1,0 +1,45 @@
+
+    h1 { font-weight:bold; }
+    h2 { font-weight:bold; }
+    h3 { background-color:#333; color:#FFF; padding:15px; }
+
+    .tab-pane>div { background:#FFF; }
+    table>thead { background-color:#CCC; }
+    table>thead>tr>th, table>tbody>tr>td { text-align: center; }
+    table>thead>tr>th:first-child, table>tbody>tr>td:first-child { text-align: left; }
+
+    .zeta1 {
+        /*background:rgba(153,0,119,0.1);*/
+        background-image: url('./img/zeta1.png');
+        background-size: 32px;
+        background-repeat: no-repeat;
+        background-position: right;
+    }
+    .zeta2 {
+        /*background:rgba(153,0,119,0.1);*/
+        background-image: url('./img/zeta2.png');
+        background-size: 32px;
+        background-repeat: no-repeat;
+        background-position: right;
+    }
+    .zeta3 {
+        /*background:rgba(153,0,119,0.1);*/
+        background-image: url('./img/zeta3.png');
+        background-size: 32px;
+        background-repeat: no-repeat;
+        background-position: right;
+    }
+
+    .shrug { font-size:10px; font-family: Consolas, "Andale Mono", "Lucida Console", "Lucida Sans Typewriter", Monaco, "Courier New", "monospace"}
+
+    section { margin-bottom:30px; }
+
+
+
+    /*
+      background: rgba(153,0,119,0.2);
+      background-image: url(img/zeta.png);
+      background-size: 24px;
+      background-repeat: no-repeat;
+      background-position: right;
+    */
