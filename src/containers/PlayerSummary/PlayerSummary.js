@@ -16,8 +16,7 @@ import TabContent from 'react-bootstrap/TabContent';
 import TabPane from 'react-bootstrap/TabPane';
 import Table from 'react-bootstrap/Table';
 
-const PlayerSummary = ({ legendaryChars, onClick, playerName, galacticPower, guildName, hasError }) => {
-
+const PlayerSummary = ({ legendaryChars, isHidden }) => {
 
   return (
     <div role="tabpanel" className="tab-pane fade in active" id="psummary">
@@ -30,6 +29,25 @@ const PlayerSummary = ({ legendaryChars, onClick, playerName, galacticPower, gui
         <div className="col-xs-12" />
         <div className="col-md-6 tablestart notmainteam">
           <h4><small /></h4>
+          <Table responsive className="table table-striped table-bordered">
+            <thead>
+              <tr>
+                <th width="30%">Name</th>
+                <th width="28%">Zetas</th>
+                <th width="8%">⭐</th>
+                <th width="8%">G</th>
+                <th width="8%">L</th>
+                <th width="8%">Ready?</th>
+              </tr>
+            </thead>
+            <tbody>
+              {
+                <tr>
+                  {squadsList.map((unit, index) => (console.log(`unit: ${JSON.stringify(unit.psummary, undefined, 4)}`)))}
+                </tr>
+              }
+            </tbody>
+          </Table>
           <table className="table table-striped table-bordered">
             <thead>
               <tr>
@@ -305,8 +323,7 @@ const PlayerSummary = ({ legendaryChars, onClick, playerName, galacticPower, gui
           </table>
         </div>
       </div>
-      <div className="row"><a name="undefined" />
-        <div id="undefined" />
+      <div className="row">
         <div className="col-xs-12" style={{"position":"-o-sticky","top":"25px","z-index":"2"}}>
           <h3>LSTB CHARACTERS<br /><small>Requirements - 7 Star - Gear 12 - Level 85</small></h3>
         </div>

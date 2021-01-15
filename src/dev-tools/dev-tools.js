@@ -1,4 +1,7 @@
-import React from 'react'
+import React from 'react';
+import ReactDOM from 'react-dom';
+
+import './dev-tools.css';
 
 function install() {
   function DevTools() {

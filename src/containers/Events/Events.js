@@ -16,7 +16,7 @@ import TabContent from 'react-bootstrap/TabContent';
 import TabPane from 'react-bootstrap/TabPane';
 import Table from 'react-bootstrap/Table';
 
-const Events = ({ legendaryChars, onClick, playerName, galacticPower, guildName, hasError }) => {
+const Events = ({  }) => {
   return (
     <div role="tabpanel" className="tab-pane fade active in" id="events">
       <h2>SWGOH EVENTS</h2>

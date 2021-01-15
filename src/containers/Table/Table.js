@@ -1,6 +1,6 @@
 import React from 'react';
 
-const DataTable = ({ row, cell }) => {
+const DataTable = ({ dataArray = [] }) => {
   return (
     <table className="table table-striped table-bordered">
       <thead>
@@ -14,6 +14,13 @@ const DataTable = ({ row, cell }) => {
         </tr>
       </thead>
       <tbody>
+        {
+          dataArray.map((unit, index) => (
+            <tr key={index}>
+              <td className="toonnamecolumn">{unit}</td>
+            </tr>
+          ))
+        }
         <tr className="GRANDADMIRALTHRAWN">
           <td className="toonnamecolumn">Grand Admiral Thrawn</td>
           <td style={{padding: "0px;"}} className="success">

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import Container from 'react-bootstrap/Container';
 import Col from 'react-bootstrap/Col';
 import Row from 'react-bootstrap/Row';
@@ -6,60 +6,50 @@ import Button from 'react-bootstrap/Button';
 import Nav from 'react-bootstrap/Nav';
 
 /** Nav tabs - THIS LIST SHOULD CONTAIN ALL THE PRIMARY KEYS FROM squads.json - Auto-activate Sith tab */
-const NavBar = ({}) => {
-  <Nav variant="pills">
+const NavBar = ({  }) => {
+  const [open, setOpen] = useState(false);
 
-    {/**<Nav.Item>
-      <Nav.Link eventKey="fetchPlayer" onClick={this.fetchPlayer}>Players</Nav.Link>
-    </Nav.Item>
-    <Nav.Item>
-      <Nav.Link eventKey="zetas" onClick={() => this.getZetaRecommendations()}>Zeta Recommendations</Nav.Link>
-    </Nav.Item>
-    <Nav.Item>
-      <Nav.Link eventKey="guild" onClick={() => this.fetchGuild()}>
-        Guild
-      </Nav.Link>
-    </Nav.Item>
-    <Nav.Item>
-      <Nav.Link eventKey="battles" onClick={() => this.getCampaignBattles()}>
-        getCampaignBattles
-      </Nav.Link>
-    </Nav.Item>*/}
+  return (
+    <Nav justify variant="tabs" defaultActiveKey="psummary">
+      <Nav.Item>
+        <Nav.Link href="#psummary" onClick={setOpen(!open)} eventKey="psummary">Player Overview</Nav.Link>
+      </Nav.Item>
+      <Nav.Item>
+        <Nav.Link href="#events" onClick={setOpen(!open)} eventKey="events">Events</Nav.Link>
+      </Nav.Item>
+      <Nav.Item>
+        <Nav.Link href="#rancor" onClick={setOpen(!open)} aria-controls="rancor" eventKey="rancor">Heroic Rancor</Nav.Link>
+      </Nav.Item>
+      <Nav.Item>
+        <Nav.Link href="#aat" onClick={setOpen(!open)} aria-controls="aat" eventKey="aat">Normal Tank</Nav.Link>
+      </Nav.Item>
+      <Nav.Item>
+        <Nav.Link href="#haat" onClick={setOpen(!open)} aria-controls="haat" eventKey="haat">Heroic Tank</Nav.Link>
+      </Nav.Item>
+      <Nav.Item>
+        <Nav.Link href="#sith" onClick={setOpen(!open)} aria-controls="sith" eventKey="sith">Sith raid</Nav.Link>
+      </Nav.Item>
+      <Nav.Item>
+        <Nav.Link href="#twdefense" onClick={setOpen(!open)} eventKey="twdefense">Player Overview</Nav.Link>
+      </Nav.Item>
+      <Nav.Item>
+        <Nav.Link href="#lstb" onClick={setOpen(!open)} aria-controls="lstb" eventKey="lstb">Hoth LSTB</Nav.Link>
+      </Nav.Item>
+      <Nav.Item>
+        <Nav.Link href="#dtsb" onClick={setOpen(!open)} aria-controls="dtsb" eventKey="dstb">Hoth DSTB</Nav.Link>
+      </Nav.Item>
+      <Nav.Item>
+        <Nav.Link href="#geonosistbds" onClick={setOpen(!open)} aria-controls="geonosistbds" eventKey="geonosistbds">Geonosis DSTB</Nav.Link>
+      </Nav.Item>
+      <Nav.Item>
+        <Nav.Link href="#geonosistbls" onClick={setOpen(!open)} aria-controls="geonosistbls" eventKey="geonosistbls">Geonosis LSTB</Nav.Link>
+      </Nav.Item>
+      <Nav.Item>
+        <Nav.Link href="#gsummary" onClick={setOpen(!open)} eventKey="gsummary">Guild Overview</Nav.Link>
+      </Nav.Item>
+    </Nav>
+  )
 
-    {/**<Nav.Item className="active">
-      <Nav.Link onClick={() => this.getCampaignBattles()} eventKey="playerOverview">Player Overview</Nav.Link>
-    </Nav.Item>
-    <Nav.Item>
-      <Nav.Link onClick={() => this.getCampaignBattles()} eventKey="">Events</Nav.Link>
-    </Nav.Item>
-    <Nav.Item>
-      <Nav.Link href="#rancor" aria-controls="rancor" onClick={() => this.getCampaignBattles()} eventKey="">Heroic Rancor</Nav.Link>
-    </Nav.Item>
-    <Nav.Item>
-      <Nav.Link href="#aat" aria-controls="aat" onClick={() => this.getCampaignBattles()} eventKey="">Normal Tank</Nav.Link>
-    </Nav.Item>
-    <Nav.Item>
-      <Nav.Link href="#haat" aria-controls="haat" onClick={() => this.getCampaignBattles()} eventKey="">Heroic Tank</Nav.Link>
-    </Nav.Item>
-    <Nav.Item>
-      <Nav.Link href="#sith" aria-controls="sith" onClick={() => this.getCampaignBattles()} eventKey="">Sith raid</Nav.Link>
-    </Nav.Item>*/}
-    {/**<Nav.Item><Nav.Link href="#twdefense" aria-controls="twdefense" onClick={() => this.getCampaignBattles()} eventKey="">Territory War Defense</Nav.Link></Nav.Item>*/}
-    {/**<Nav.Item>
-      <Nav.Link href="#lstb" aria-controls="lstb" onClick={() => this.getCampaignBattles()} eventKey="">Hoth LSTB</Nav.Link>
-    </Nav.Item>
-    <Nav.Item>
-      <Nav.Link href="#dstb" aria-controls="dstb" onClick={() => this.getCampaignBattles()} eventKey="">Hoth DSTB</Nav.Link>
-    </Nav.Item>
-    <Nav.Item>
-      <Nav.Link href="#geonosistbds" aria-controls="geonosistbds" onClick={() => this.getCampaignBattles()} eventKey="">Geonosis DSTB</Nav.Link>
-    </Nav.Item>
-    <Nav.Item>
-      <Nav.Link href="#geonosistbls" aria-controls="geonosistbls" onClick={() => this.getCampaignBattles()} eventKey="">Geonosis LSTB</Nav.Link>
-    </Nav.Item>*/}
-    {/**<Nav.Item role="presentation"><Nav.Link href="#gsummary" aria-controls="gsummary" onClick={() => this.getCampaignBattles()} eventKey="">Guild Overview</Nav.Link></Nav.Item>*/}
-
-  </Nav>
 }
 
 export default NavBar;
