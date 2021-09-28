@@ -1,16 +1,22 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 import Jumbotron from 'react-bootstrap/Jumbotron';
 import Col from 'react-bootstrap/Col';
 import Row from 'react-bootstrap/Row';
 import Button from 'react-bootstrap/Button';
 
+const stats = localStorage.getItem('playerStats');
+const playerPortraits = localStorage.getItem('playerPortraits');
+
 const Header = ({ accessToken, gameVersion, onClick, playerName, galacticPower, guildName, hasError }) => {
+  useEffect(() => {
+    playerPortraits && console.log(`typeof playerPortraits: ${typeof JSON.parse(playerPortraits).selected}`)
+  }, [])
 
   return (
     <Jumbotron>
         <Row>
           <Col xs={12} md={12} lg={12}>
-            <h1> Erlkonig's SWGOH Dashboard </h1>
+            <h1> {playerName} SWGOH Dashboard </h1>
             <p>
               Data dashboard that lists data pulled from SWGOH Help API.
             </p>
@@ -20,8 +26,13 @@ const Header = ({ accessToken, gameVersion, onClick, playerName, galacticPower, 
 
         <Row>
           <Col xs={12} md={12} lg={12}>
-            <p>Version: {gameVersion}</p>
-            <br />
+            {
+              playerPortraits
+              ? <div>
+                  <h3>Player Portrait:</h3>
+                  <p>{JSON.parse(playerPortraits).selected}</p>
+                </div> : null
+            }
 
             <div>
               <span>Has error: {JSON.stringify(hasError)}</span>

@@ -1,0 +1,70 @@
+Query Index
+Useful queries and payloads
+If you craft any requests that may be valued by the community of users, please feel free to submit them to us in discord! We would be more than happy to include in, and expand this index.
+
+Game Data
+Localized Units List
+Create a localized index of units, with baseId for mapping to unit.defId
+Matching rarity:7 reduces results to one defintion per unit
+
+/swgoh/data
+Payload: {
+    "collection": "unitsList",
+    "language": "eng_us",
+    "enums":true,
+    "match": {
+    	"rarity": 7
+    },
+    "project": {
+        "baseId": 1,
+        "nameKey": 1,
+        "descKey": 1,
+        "forceAlignment": 1,
+        "categoryIdList": 1,
+        "combatType": 1
+    }
+}
+Localized Skills List
+Create a localized index of skills and abilities, for mapping to skill.id
+Player profiles use a skillId, which maps to an abilityId for localizations... in this case, we need to fetch two (2) lists to provide mapping for skill names
+
+/swgoh/data
+Payload: {
+    "collection": "skillList",
+    "language": "eng_us",
+    "enums":true,
+    "project": {
+        "id":1,
+        "abilityReference":1,
+        "isZeta":1
+    }
+}
+From this list, we can now map unit.skillId => skillList.id
+
+/swgoh/data
+Payload: {
+    "collection": "abilityList",
+    "language": "eng_us",
+    "enums":true,
+    "project": {
+        "id":1,
+        "type":1,
+        "nameKey":1
+    }
+}
+From this list, we can now access localized names by mapping skillList.abilityReference => abilityList.id
+
+Localized Gear List
+Create a localized index of gear for mappint to unit.equipped
+
+/swgoh/data
+Payload: {
+    "collection": "equipmentList",
+    "language": "eng_us",
+    "enums":true,
+    "project": {
+        "id": 1,
+        "nameKey": 1
+    }
+}
+v5.2.2

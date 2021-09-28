@@ -1,0 +1,97 @@
+h3 {
+    background-color: #333;
+    color: #FFF;
+    padding: 15px;
+}
+
+small {
+  font-weight: 400;
+    line-height: 1;
+    color: #777;
+}
+
+#content {
+  max-width: 1440px;
+}
+
+#character-grid {
+  justify-content: center;
+}
+
+.character-box {
+  margin: 15px;
+  text-align: center;
+}
+
+.collection-char {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.player-char-portrait {
+  display: flex;
+  justify-content: center;
+}
+
+.player-char-portrait img {
+  border: 3px solid red;
+}
+
+.player-char-portrait .char-portrait-zetas {
+  position: absolute;
+  top: 37%;
+  left: 30%;
+  border-radius: 50%;
+  height: 25px;
+  width: 25px;
+  font-weight: bold;
+  background: purple;
+  color: white;
+}
+
+.char-portrait-full-level {
+  position: absolute;
+  top: 40%;
+  left: 43%;
+  border-radius: 50%;
+  border: 2px solid white;
+  height: 35px;
+  width: 35px;
+  font-weight: bold;
+  background: black;
+  color: white;
+  line-height: 2;
+}
+
+.char-portrait-full-relic {
+  position: absolute;
+  top: 37%;
+  right: 30%;
+  border-radius: 50%;
+  height: 25px;
+  width: 25px;
+  font-weight: bold;
+  background: purple;
+  color: white;
+}
+
+.collection-char-gp {
+  display: flex;
+  justify-content: space-evenly;
+  -ms-align-items: center;
+  align-items: center;
+}
+
+.collection-char-gp .progress {
+  width: 50%;
+}
+
+.collection-char-gp-label {
+  display: flex;
+}
+
+.star {
+  color: #ff9933;
+  cursor: pointer;
+}
