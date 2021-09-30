@@ -53,11 +53,11 @@ small {
 .char-portrait-full-level {
   position: absolute;
   top: 40%;
-  left: 43%;
+  left: 41%;
   border-radius: 50%;
   border: 2px solid white;
   height: 35px;
-  width: 35px;
+  width: 45px;
   font-weight: bold;
   background: black;
   color: white;

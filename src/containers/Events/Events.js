@@ -22,38 +22,11 @@ import Header from '../../containers/Header/Header.js';
 import Overlay from '../../containers/Overlay/Overlay.js';
 import NavBar from '../../containers/NavBar/NavBar.js';
 
-const Events = ({ }) => {
+const Events = () => {
   const squadsList = localStorage.getItem('squadsList');
   const squadsJSON = JSON.parse(squadsList);
   const playerRoster = localStorage.getItem('playerRoster');
   const rosterJSON = JSON.parse(playerRoster);
-
-  const eventPhases = []
-  var phaseObject;
-  var squadsObject;
-
-  useEffect(() => {
-    const playerData = localStorage.getItem('playerData')
-    //console.log(`playerData: ${playerData}`)
-    squadsJSON.map((squad, index) => {
-      //console.log(`squadsJSON map: ${JSON.stringify(squad.events.phase, undefined, 2)}`)
-      eventPhases.push(squad.events.phase)
-      phaseObject = squad.events.phase
-    })
-
-    rosterJSON.map((r) => {
-      console.log(`r: ${r}`)
-    })
-
-    // eventPhases.map((phase, index) => (
-    //   console.log(`eventPhases map: ${JSON.stringify(phase, undefined, 2)} - index: ${index}`)
-    // ))
-
-    rosterJSON.forEach(unit => console.log(`unit: ${JSON.stringify(unit.defId)}`))
-    // const filteredRoster = rosterJSON.filter(unit => unit.length < 5)
-    // console.log(`filteredRoster: ${filteredRoster}`)
-    //phaseObject.forEach(phase => phase.squads.map(team => team.team.map(t => console.log(`phaseObject forEach: ${JSON.stringify(t)}`))))
-  });
 
   return (
     <>

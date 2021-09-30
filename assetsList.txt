@@ -1,0 +1,57 @@
+Images base URL:
+https://swgoh.gg/static/img/
+
+Faction Background Images:
+https://swgoh.gg/static/img/light-dark-side.png
+https://swgoh.gg/static/img/light-side.jpg
+https://swgoh.gg/static/img/dark-side.jpg
+
+General Skywalker Image:
+https://game-assets.swgoh.gg/tex.charui_generalanakin.png
+https://game-assets.swgoh.gg/tex.charui_trooperclone_cody.png
+https://game-assets.swgoh.gg/tex.charui_trooperclone_echo.png
+https://game-assets.swgoh.gg/tex.charui_trooperclone_rex.png
+
+Gear Level BG Image (Lvl 1-12):
+https://swgoh.gg/static/img/ui/gear-icon-g10.svg
+
+Gear Level 13 BG Image Spritesheet:
+https://swgoh.gg/static/img/ui/g13-frame-atlas.png
+
+Zeta BG Icon:
+https://swgoh.gg/static/img/assets/tex.skill_zeta.png
+
+Glowing Zeta BG Icon:
+https://swgoh.gg/static/img/assets/tex.skill_zeta_glow.png
+
+Empty Mod BG:
+https://swgoh.gg/static/img/ui/statmod-bg.png
+
+Mod Sets Spritesheet:
+https://swgoh.gg/static/img/ui/statmod-sets.png
+
+Mod Shapes Spritesheet:
+https://swgoh.gg/static/img/ui/mod-shape-atlas.png
+
+Mod Icons Spritesheet:
+https://swgoh.gg/static/img/ui/mod-icon-atlas.png
+
+General Skywalker Relic Image:
+https://game-assets.swgoh.gg/tex.relic_swd_anakin.png
+
+Relic Background Image Spritesheet:
+https://swgoh.gg/static/img/ui/relic-backdrop-atlas.png
+
+Relic Badge spritesheet:
+https://swgoh.gg/static/img/ui/relic-badge-atlas.png
+
+General Skywalker Skills Images:
+https://game-assets.swgoh.gg/tex.ability_generalanakin_basic.png
+https://game-assets.swgoh.gg/tex.ability_generalanakin_basic_special01.png
+https://game-assets.swgoh.gg/tex.ability_generalanakin_special02.png
+https://game-assets.swgoh.gg/tex.abilityui_passive_501.png
+https://game-assets.swgoh.gg/tex.abilityui_passive_def.png
+https://game-assets.swgoh.gg/tex.abilityui_passive_jedi.png
+
+Ability Omega Icon:
+https://swgoh.gg/static/img/assets/tex.skill_pentagon_gold.png

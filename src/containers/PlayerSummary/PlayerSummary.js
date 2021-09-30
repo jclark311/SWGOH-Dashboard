@@ -1,65 +1,18 @@
 import React, { useState, useEffect } from 'react';
-import { Link, withRouter } from 'react-router-dom';
-import Jumbotron from 'react-bootstrap/Jumbotron';
+import { withRouter } from 'react-router-dom';
 import Container from 'react-bootstrap/Container';
 import Col from 'react-bootstrap/Col';
 import Row from 'react-bootstrap/Row';
-import Button from 'react-bootstrap/Button';
-import Nav from 'react-bootstrap/Nav';
-import Form from 'react-bootstrap/Form';
-import FormCheck from 'react-bootstrap/FormCheck';
-import InputGroup from 'react-bootstrap/InputGroup';
-import DropdownButton from 'react-bootstrap/DropdownButton';
-import Tabs from 'react-bootstrap/Tabs';
-import Tab from 'react-bootstrap/Tab';
-import TabContainer from 'react-bootstrap/TabContainer';
-import TabContent from 'react-bootstrap/TabContent';
-import TabPane from 'react-bootstrap/TabPane';
 import Table from 'react-bootstrap/Table';
 
 import Header from '../../containers/Header/Header.js';
-import Overlay from '../../containers/Overlay/Overlay.js';
 import NavBar from '../../containers/NavBar/NavBar.js';
 
-const PlayerSummary = ({ }) => {
-  const [eventName, setEventName] = useState()
-  const [legendaryChars, setLegendaryChars] = useState()
+const PlayerSummary = () => {
 
   const squadsList = localStorage.getItem('squadsList');
   const squadsJSON = JSON.parse(squadsList);
-
   const eventPhases = []
-  var phaseObject;
-  var squadsObject;
-
-  useEffect(() => {
-    const playerData = localStorage.getItem('playerData')
-    //console.log(`playerData: ${playerData}`)
-    const squadsList = localStorage.getItem('squadsList');
-    const squadsJSON = JSON.parse(squadsList);
-
-
-    squadsJSON.map((squad, index) => {
-      console.log(`squadsJSON map: ${JSON.stringify(squad.psummary.phase)}`)
-      eventPhases.push(squad.psummary.phase)
-      phaseObject = squad.psummary.phase
-    })
-
-    eventPhases.map((phase, index) => (
-      console.log(
-        `
-          eventPhases map:
-            - Event Name: ${phase.map(p =>
-              JSON.stringify(p.squads.map(s => s.team))
-
-            )}
-
-        `
-      )
-    ))
-
-    phaseObject.forEach(phase => phase.squads.map(team => team.team.map(t => console.log(`phaseObject forEach: ${JSON.stringify(t)}`))))
-  });
 
   return (
     <>
@@ -242,6 +195,71 @@ const PlayerSummary = ({ }) => {
           </Col>
         </Row>
 
+        <Row>
+          <Col>
+            {
+              squadsJSON.map((unit) => (
+                <>
+                  <div className="col-xs-12">
+                    <h2>{unit.psummary.name}</h2>
+                  </div>
+
+                  {unit.psummary.phase.map((p) => (
+                    p.squads.map(s => (
+                      <>
+                        <div className="col-xs-12" style={{"position":"-o-sticky","top":"25px","zIndex":"2"}}>
+                          <h3>{p.name}<br /><small>Requirements - {unit.psummary.rarity} Star - Gear {unit.psummary.gear} - Level {unit.psummary.level}</small></h3>
+                        </div>
+
+                        <div className="col tablestart notmainteam">
+                          <Table responsive className="table table-striped table-bordered">
+                            <thead>
+                              <tr>
+                                <th width="30%">Name</th>
+                                <th width="28%">Zetas</th>
+                                <th width="8%">⭐</th>
+                                <th width="8%">G</th>
+                                <th width="8%">L</th>
+                                <th width="8%">Ready?</th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                              {p.squads.map((squad) => (
+                                <tr className="GRANDADMIRALTHRAWN">
+                                  {squad.team.map((toon) => (
+                                    <td className="toonnamecolumn">{toon.split(":", 1)}</td>
+                                  ))}
+
+                                  <td style={{"padding":"0px"}} className="success">
+                                    <table className="table">
+                                      <tbody>
+                                        <tr>
+                                          <td className="danger leaderskill_GRANDADMIRALTHRAWN">Legendary Strategist</td>
+                                        </tr>
+                                        <tr>
+                                          <td className="success uniqueskill_GRANDADMIRALTHRAWN01">Ebb and Flow</td>
+                                        </tr>
+                                      </tbody>
+                                    </table>
+                                  </td>
+                                  <td className="success rarity">7</td>
+                                  <td className="success">12</td>
+                                  <td className="success">85</td>
+                                  <td className="completeunit danger"><span className="glyphicon glyphicon-remove" /></td>
+                                </tr>
+                              ))}
+                            </tbody>
+                          </Table>
+                        </div>
+                      </>
+                    ))
+
+                  ))}
+                </>
+              ))
+            }
+          </Col>
+        </Row>
       </Container>
     </>
   );

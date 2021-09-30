@@ -1,0 +1,4 @@
+.jumbotron {
+  box-shadow: rgb(63, 63, 191) 0px 0px 6px 1px inset;
+  background-color: rgba(63, 63, 191, 0.25);
+}

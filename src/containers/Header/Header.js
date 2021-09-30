@@ -4,45 +4,45 @@ import Col from 'react-bootstrap/Col';
 import Row from 'react-bootstrap/Row';
 import Button from 'react-bootstrap/Button';
 
-const stats = localStorage.getItem('playerStats');
+import './Header.css'
+
 const playerPortraits = localStorage.getItem('playerPortraits');
 
-const Header = ({ accessToken, gameVersion, onClick, playerName, galacticPower, guildName, hasError }) => {
+const Header = ({ onClick, playerName, galacticPower, guildName, hasError }) => {
   useEffect(() => {
     playerPortraits && console.log(`typeof playerPortraits: ${typeof JSON.parse(playerPortraits).selected}`)
   }, [])
 
   return (
     <Jumbotron>
-        <Row>
-          <Col xs={12} md={12} lg={12}>
-            <h1> {playerName} SWGOH Dashboard </h1>
-            <p>
-              Data dashboard that lists data pulled from SWGOH Help API.
-            </p>
-            <hr />
-          </Col>
-        </Row>
+      <Row>
+        <Col xs={12} md={12} lg={12}>
+          <h1> SWGOH Dashboard </h1>
+          <p>
+            Data dashboard that lists data pulled from SWGOH Help API.
+          </p>
+          <hr />
+        </Col>
+      </Row>
 
-        <Row>
-          <Col xs={12} md={12} lg={12}>
-            {
-              playerPortraits
-              ? <div>
-                  <h3>Player Portrait:</h3>
-                  <p>{JSON.parse(playerPortraits).selected}</p>
-                </div> : null
-            }
-
+      <Row>
+        <Col xs={12} md={12} lg={12}>
+          {
+            playerPortraits
+            ? <div>
+                <h2>{playerName}</h2>
+                <p>{JSON.parse(playerPortraits).selected}</p>
+                <p>{guildName}</p>
+              </div> : null
+          }
+          <div>
+            <span>Has error: {JSON.stringify(hasError)}</span>
             <div>
-              <span>Has error: {JSON.stringify(hasError)}</span>
-              <div>
-                <Button onClick={onClick}>Get Player Profile</Button>
-              </div>
+              <Button onClick={onClick}>Get Player Profile</Button>
             </div>
-          </Col>
-        </Row>
-
+          </div>
+        </Col>
+      </Row>
     </Jumbotron>
   );
 }

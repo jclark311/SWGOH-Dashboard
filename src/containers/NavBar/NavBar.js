@@ -4,10 +4,6 @@ import {
   useRouteMatch,
   withRouter
 } from "react-router-dom";
-import Container from 'react-bootstrap/Container';
-import Col from 'react-bootstrap/Col';
-import Row from 'react-bootstrap/Row';
-import Button from 'react-bootstrap/Button';
 import Nav from 'react-bootstrap/Nav';
 
 import './NavBar.css';
@@ -38,20 +34,14 @@ class NavBar extends Component {
   }
 
     render() {
-      const { location } = this.props;
         return (
           <>
             <Nav variant="tabs">
               <TabNavBar activeOnlyWhenExact={true} to="/psummary" label="Player Summary" />
               <TabNavBar activeOnlyWhenExact={true} to="/events" label="Events" />
-              <TabNavBar activeOnlyWhenExact={true} to="/rancor" label="Heroic Rancor" />
-              <TabNavBar activeOnlyWhenExact={true} to="/aat" label="Normal Tank" />
-              <TabNavBar activeOnlyWhenExact={true} to="/haat" label="Heroic Tank" />
-              <TabNavBar activeOnlyWhenExact={true} to="/sith" label="Sith Raid" />
-              <TabNavBar activeOnlyWhenExact={true} to="/lstb" label="Hoth LSTB" />
-              <TabNavBar activeOnlyWhenExact={true} to="/dstb" label="Hoth DSTB" />
-              <TabNavBar activeOnlyWhenExact={true} to="/geonosisdstb" label="Geonosis DSTB" />
-              <TabNavBar activeOnlyWhenExact={true} to="/geonosislstb" label="Geonosis LSTB" />
+              <TabNavBar activeOnlyWhenExact={true} to="/characters" label="Characters" />
+              <TabNavBar activeOnlyWhenExact={true} to="/checklist" label="Checklist" />
+              <TabNavBar activeOnlyWhenExact={true} to="/player-profile" label="Player Profile" />
             </Nav>
           </>
         );

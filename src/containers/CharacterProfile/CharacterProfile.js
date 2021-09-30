@@ -1,22 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import { Link, withRouter, useHistory } from 'react-router-dom';
-import { ImCross, ImCheckmark } from 'react-icons/im';
-import Jumbotron from 'react-bootstrap/Jumbotron';
+import { BrowserRouter as Router, Link, withRouter, useHistory, useLocation, useParams } from 'react-router-dom';
 import Container from 'react-bootstrap/Container';
 import Col from 'react-bootstrap/Col';
 import Row from 'react-bootstrap/Row';
 import Button from 'react-bootstrap/Button';
-import Nav from 'react-bootstrap/Nav';
-import Form from 'react-bootstrap/Form';
-import FormCheck from 'react-bootstrap/FormCheck';
-import InputGroup from 'react-bootstrap/InputGroup';
-import DropdownButton from 'react-bootstrap/DropdownButton';
-import Tabs from 'react-bootstrap/Tabs';
-import Tab from 'react-bootstrap/Tab';
-import TabContainer from 'react-bootstrap/TabContainer';
-import TabContent from 'react-bootstrap/TabContent';
-import TabPane from 'react-bootstrap/TabPane';
-import Table from 'react-bootstrap/Table';
 
 import Header from '../../containers/Header/Header.js';
 import Overlay from '../../containers/Overlay/Overlay.js';
@@ -24,19 +11,21 @@ import NavBar from '../../containers/NavBar/NavBar.js';
 
 import './CharacterProfile.css';
 
-const BreadCrumb = () => {
+
+
+const BreadCrumb = ({playerName, characterName}) => {
   return (
     <>
       <ol className="breadcrumb">
-        <li><a href="/p/388591888/">Erlkönig</a></li>
-        <li><a href="/p/388591888/characters/">Characters</a></li>
-        <li className="active">Darth Revan</li>
+        <li><a href="/">{playerName}</a></li>
+        <li><a href="/characters/">Characters</a></li>
+        <li className="active">{characterName}</li>
       </ol>
     </>
   );
 }
 
-const Aside = () => {
+const Aside = ({charId, charNameKey, charLevel, charZetas, charRelic}) => {
   return (
     <>
       <div className="content-container-aside">
@@ -45,25 +34,25 @@ const Aside = () => {
               <div className="panel-body text-center">
                   <div className="pc-portrait">
                       <div className="player-char-portrait char-portrait-full char-portrait-full-large char-portrait-full-gear-t13 char-portrait-full-alignment-dark-side">
-                          <a href="/p/388591888/characters/darth-revan" className="char-portrait-full-link" rel="nofollow">
-                            <img className="char-portrait-full-img" src="https://swgoh.gg/game-asset/u/DARTHREVAN/" alt="Darth Revan" />
-                              <div className="char-portrait-full-gear"></div>
-                              <div className="star star1"></div>
-                              <div className="star star2"></div>
-                              <div className="star star3"></div>
-                              <div className="star star4"></div>
-                              <div className="star star5"></div>
-                              <div className="star star6"></div>
-                              <div className="star star7"></div>
-                              <div className="char-portrait-full-level">85</div>
-                              <div className="char-portrait-full-zeta">3</div>
-                              <div className="char-portrait-full-relic">7</div>
+                          <a href={`"/character-profile/${charId}"`} className="char-portrait-full-link" rel="nofollow">
+                            <img className="char-portrait-full-img" src="https://swgoh.gg/game-asset/u/DARTHREVAN/" alt={`${charNameKey}`} />
+                            <div className="char-portrait-full-gear"></div>
+                            <div className="star star1"></div>
+                            <div className="star star2"></div>
+                            <div className="star star3"></div>
+                            <div className="star star4"></div>
+                            <div className="star star5"></div>
+                            <div className="star star6"></div>
+                            <div className="star star7"></div>
+                            <div className="char-portrait-full-level">{charLevel}</div>
+                            <div className="char-portrait-full-zeta">{charZetas}</div>
+                            <div className="char-portrait-full-relic">{charRelic}</div>
                           </a>
                       </div>
                   </div>
                   <h1 className="panel-title">
-                    <a className="pc-char-overview-name" href="/characters/darth-revan/">
-                      Darth Revan
+                    <a className="pc-char-overview-name" href={`"/character-profile/${charId}"`}>
+                      {charNameKey}
                     </a>
                   </h1>
                   <div className="pc-char-overview">
@@ -143,7 +132,7 @@ const Aside = () => {
                       <div title="Lightsaber" className="relic-portrait relic-portrait--size- relic-portrait--alignment-dark-side">
                           <div className="relic-portrait__backdrop">
                               <img className="relic-portrait__img" src="https://swgoh.gg/static/img/assets/tex.relic_swd_sithrevan.png" alt="" />
-                              <div className="relic-portrait__tier">7</div>
+                              <div className="relic-portrait__tier">{charRelic}</div>
                           </div>
                           <div className="relic-portrait__name">Lightsaber</div>
                       </div>
@@ -380,696 +369,288 @@ const SidebarRight = () => {
   )
 }
 
-const CharactersGrid = () => {
+const CharactersGrid = ({roster}) => {
+  let { id } = useParams();
   return (
-    <>
-      <div className="content-container-primary">
-          <ul className="list-group media-list media-list-stream m-b-sm">
-              <li className="media list-group-item">
-                  <h4>Galactic Power Breakdown</h4>
-                  <div className="unit-gp-stats">
-                      <div className="unit-gp-stats-header">
-                          <div className="unit-gp-stats-header-cell"></div>
-                          <div className="unit-gp-stats-header-cell"></div>
-                          <div className="unit-gp-stats-header-cell"></div>
-                          <div className="unit-gp-stats-header-cell">
-                              cur / max
+    roster.map(unit => (
+      unit.id === id && (
+        console.log(unit),
+        <>
+          <div className="content-container-primary">
+              <ul className="list-group media-list media-list-stream m-b-sm">
+                  <li className="media list-group-item">
+                      <h4>Galactic Power Breakdown</h4>
+                      <div className="unit-gp-stats">
+                          <div className="unit-gp-stats-header">
+                              <div className="unit-gp-stats-header-cell"></div>
+                              <div className="unit-gp-stats-header-cell"></div>
+                              <div className="unit-gp-stats-header-cell"></div>
+                              <div className="unit-gp-stats-header-cell">
+                                  cur / max
+                              </div>
+                              <div className="unit-gp-stats-header-cell">
+                                  diff
+                              </div>
                           </div>
-                          <div className="unit-gp-stats-header-cell">
-                              diff
+                          <div className="unit-gp-stat ">
+                              <div className="unit-gp-stat-label unit-gp-stat-cell">Overall</div>
+                              <div className="unit-gp-stat-cell">
+                                  <div className="unit-gp-progress">
+                                      <div className="unit-gp-progress-bar" style={{"width": "93.9417%"}}></div>
+                                  </div>
+                              </div>
+                              <div className="unit-gp-stat-numbers unit-gp-stat-cell"><span className="unit-gp-stat-percent"><span className="unit-gp-stat-percent-value">
+                                93
+                              </span><span className="unit-gp-stat-percent-symbol">%</span></span>
+                              </div>
+                              <div className="unit-gp-stat-numbers unit-gp-stat-cell"><span className="unit-gp-stat-amount"><span className="unit-gp-stat-amount-value unit-gp-stat-amount-current">35,308</span><span className="unit-gp-stat-amount-sep">/</span><span className="unit-gp-stat-amount-value unit-gp-stat-amount-max">37,585</span></span>
+                              </div>
+                              <div className="unit-gp-stat-numbers unit-gp-stat-cell"><span className="unit-gp-stat-diff">2,277</span></div>
+                          </div>
+                          <div className="unit-gp-stat unit-gp-stat-complete">
+                              <div className="unit-gp-stat-label unit-gp-stat-cell">Level</div>
+                              <div className="unit-gp-stat-cell">
+                                  <div className="unit-gp-progress">
+                                      <div className="unit-gp-progress-bar" style={{"width": " 100%"}}></div>
+                                  </div>
+                              </div>
+                              <div className="unit-gp-stat-numbers unit-gp-stat-cell"><span className="unit-gp-stat-percent"><span className="unit-gp-stat-percent-value">
+                                100
+                              </span><span className="unit-gp-stat-percent-symbol">%</span></span>
+                              </div>
+                              <div className="unit-gp-stat-numbers unit-gp-stat-cell"><span className="unit-gp-stat-amount"><span className="unit-gp-stat-amount-value unit-gp-stat-amount-current">1,976</span><span className="unit-gp-stat-amount-sep">/</span><span className="unit-gp-stat-amount-value unit-gp-stat-amount-max">1,976</span></span>
+                              </div>
+                              <div className="unit-gp-stat-numbers unit-gp-stat-cell"></div>
+                          </div>
+                          <div className="unit-gp-stat unit-gp-stat-complete">
+                              <div className="unit-gp-stat-label unit-gp-stat-cell">Stars</div>
+                              <div className="unit-gp-stat-cell">
+                                  <div className="unit-gp-progress">
+                                      <div className="unit-gp-progress-bar" style={{"width": " 100%"}}></div>
+                                  </div>
+                              </div>
+                              <div className="unit-gp-stat-numbers unit-gp-stat-cell"><span className="unit-gp-stat-percent"><span className="unit-gp-stat-percent-value">
+                                100
+                              </span><span className="unit-gp-stat-percent-symbol">%</span></span>
+                              </div>
+                              <div className="unit-gp-stat-numbers unit-gp-stat-cell"><span className="unit-gp-stat-amount"><span className="unit-gp-stat-amount-value unit-gp-stat-amount-current">4,655</span><span className="unit-gp-stat-amount-sep">/</span><span className="unit-gp-stat-amount-value unit-gp-stat-amount-max">4,655</span></span>
+                              </div>
+                              <div className="unit-gp-stat-numbers unit-gp-stat-cell"></div>
+                          </div>
+                          <div className="unit-gp-stat unit-gp-stat-complete">
+                              <div className="unit-gp-stat-label unit-gp-stat-cell">Ability Levels</div>
+                              <div className="unit-gp-stat-cell">
+                                  <div className="unit-gp-progress">
+                                      <div className="unit-gp-progress-bar" style={{"width": " 100%"}}></div>
+                                  </div>
+                              </div>
+                              <div className="unit-gp-stat-numbers unit-gp-stat-cell"><span className="unit-gp-stat-percent"><span className="unit-gp-stat-percent-value">
+                                100
+                              </span><span className="unit-gp-stat-percent-symbol">%</span></span>
+                              </div>
+                              <div className="unit-gp-stat-numbers unit-gp-stat-cell"><span className="unit-gp-stat-amount"><span className="unit-gp-stat-amount-value unit-gp-stat-amount-current">11,295</span><span className="unit-gp-stat-amount-sep">/</span><span className="unit-gp-stat-amount-value unit-gp-stat-amount-max">11,295</span></span>
+                              </div>
+                              <div className="unit-gp-stat-numbers unit-gp-stat-cell"></div>
+                          </div>
+                          <div className="unit-gp-stat unit-gp-stat-complete">
+                              <div className="unit-gp-stat-label unit-gp-stat-cell">Gear Pieces</div>
+                              <div className="unit-gp-stat-cell">
+                                  <div className="unit-gp-progress">
+                                      <div className="unit-gp-progress-bar" style={{"width": " 100%"}}></div>
+                                  </div>
+                              </div>
+                              <div className="unit-gp-stat-numbers unit-gp-stat-cell"><span className="unit-gp-stat-percent"><span className="unit-gp-stat-percent-value">
+                                100
+                              </span><span className="unit-gp-stat-percent-symbol">%</span></span>
+                              </div>
+                              <div className="unit-gp-stat-numbers unit-gp-stat-cell"><span className="unit-gp-stat-amount"><span className="unit-gp-stat-amount-value unit-gp-stat-amount-current">7,515</span><span className="unit-gp-stat-amount-sep">/</span><span className="unit-gp-stat-amount-value unit-gp-stat-amount-max">7,515</span></span>
+                              </div>
+                              <div className="unit-gp-stat-numbers unit-gp-stat-cell"></div>
+                          </div>
+                          <div className="unit-gp-stat unit-gp-stat-complete">
+                              <div className="unit-gp-stat-label unit-gp-stat-cell">Mods</div>
+                              <div className="unit-gp-stat-cell">
+                                  <div className="unit-gp-progress">
+                                      <div className="unit-gp-progress-bar" style={{"width": " 100%"}}></div>
+                                  </div>
+                              </div>
+                              <div className="unit-gp-stat-numbers unit-gp-stat-cell"><span className="unit-gp-stat-percent"><span className="unit-gp-stat-percent-value">
+                                100
+                              </span><span className="unit-gp-stat-percent-symbol">%</span></span>
+                              </div>
+                              <div className="unit-gp-stat-numbers unit-gp-stat-cell"><span className="unit-gp-stat-amount"><span className="unit-gp-stat-amount-value unit-gp-stat-amount-current">1,899</span><span className="unit-gp-stat-amount-sep">/</span><span className="unit-gp-stat-amount-value unit-gp-stat-amount-max">1,899</span></span>
+                              </div>
+                              <div className="unit-gp-stat-numbers unit-gp-stat-cell"></div>
+                          </div>
+                          <div className="unit-gp-stat ">
+                              <div className="unit-gp-stat-label unit-gp-stat-cell">Relic Modifier</div>
+                              <div className="unit-gp-stat-cell">
+                                  <div className="unit-gp-progress">
+                                      <div className="unit-gp-progress-bar" style={{"width": " 77.7778%"}}></div>
+                                  </div>
+                              </div>
+                              <div className="unit-gp-stat-numbers unit-gp-stat-cell"><span className="unit-gp-stat-percent"><span className="unit-gp-stat-percent-value">
+                                77
+                              </span><span className="unit-gp-stat-percent-symbol">%</span></span>
+                              </div>
+                              <div className="unit-gp-stat-numbers unit-gp-stat-cell"><span className="unit-gp-stat-amount"><span className="unit-gp-stat-amount-value unit-gp-stat-amount-current">2,678</span><span className="unit-gp-stat-amount-sep">/</span><span className="unit-gp-stat-amount-value unit-gp-stat-amount-max">3,443</span></span>
+                              </div>
+                              <div className="unit-gp-stat-numbers unit-gp-stat-cell"><span className="unit-gp-stat-diff">765</span></div>
+                          </div>
+                          <div className="unit-gp-stat ">
+                              <div className="unit-gp-stat-label unit-gp-stat-cell">Relic Tier</div>
+                              <div className="unit-gp-stat-cell">
+                                  <div className="unit-gp-progress">
+                                      <div className="unit-gp-progress-bar" style={{"width": " 77.7778%"}}></div>
+                                  </div>
+                              </div>
+                              <div className="unit-gp-stat-numbers unit-gp-stat-cell"><span className="unit-gp-stat-percent"><span className="unit-gp-stat-percent-value">
+                                77
+                              </span><span className="unit-gp-stat-percent-symbol">%</span></span>
+                              </div>
+                              <div className="unit-gp-stat-numbers unit-gp-stat-cell"><span className="unit-gp-stat-amount"><span className="unit-gp-stat-amount-value unit-gp-stat-amount-current">5,292</span><span className="unit-gp-stat-amount-sep">/</span><span className="unit-gp-stat-amount-value unit-gp-stat-amount-max">6,804</span></span>
+                              </div>
+                              <div className="unit-gp-stat-numbers unit-gp-stat-cell"><span className="unit-gp-stat-diff">1,512</span></div>
                           </div>
                       </div>
-                      <div className="unit-gp-stat ">
-                          <div className="unit-gp-stat-label unit-gp-stat-cell">Overall</div>
-                          <div className="unit-gp-stat-cell">
-                              <div className="unit-gp-progress">
-                                  <div className="unit-gp-progress-bar" style={{"width": "93.9417%"}}></div>
-                              </div>
-                          </div>
-                          <div className="unit-gp-stat-numbers unit-gp-stat-cell"><span className="unit-gp-stat-percent"><span className="unit-gp-stat-percent-value">
-93
-</span><span className="unit-gp-stat-percent-symbol">%</span></span>
-                          </div>
-                          <div className="unit-gp-stat-numbers unit-gp-stat-cell"><span className="unit-gp-stat-amount"><span className="unit-gp-stat-amount-value unit-gp-stat-amount-current">35,308</span><span className="unit-gp-stat-amount-sep">/</span><span className="unit-gp-stat-amount-value unit-gp-stat-amount-max">37,585</span></span>
-                          </div>
-                          <div className="unit-gp-stat-numbers unit-gp-stat-cell"><span className="unit-gp-stat-diff">2,277</span></div>
-                      </div>
-                      <div className="unit-gp-stat unit-gp-stat-complete">
-                          <div className="unit-gp-stat-label unit-gp-stat-cell">Level</div>
-                          <div className="unit-gp-stat-cell">
-                              <div className="unit-gp-progress">
-                                  <div className="unit-gp-progress-bar" style={{"width": " 100%"}}></div>
-                              </div>
-                          </div>
-                          <div className="unit-gp-stat-numbers unit-gp-stat-cell"><span className="unit-gp-stat-percent"><span className="unit-gp-stat-percent-value">
-100
-</span><span className="unit-gp-stat-percent-symbol">%</span></span>
-                          </div>
-                          <div className="unit-gp-stat-numbers unit-gp-stat-cell"><span className="unit-gp-stat-amount"><span className="unit-gp-stat-amount-value unit-gp-stat-amount-current">1,976</span><span className="unit-gp-stat-amount-sep">/</span><span className="unit-gp-stat-amount-value unit-gp-stat-amount-max">1,976</span></span>
-                          </div>
-                          <div className="unit-gp-stat-numbers unit-gp-stat-cell"></div>
-                      </div>
-                      <div className="unit-gp-stat unit-gp-stat-complete">
-                          <div className="unit-gp-stat-label unit-gp-stat-cell">Stars</div>
-                          <div className="unit-gp-stat-cell">
-                              <div className="unit-gp-progress">
-                                  <div className="unit-gp-progress-bar" style={{"width": " 100%"}}></div>
-                              </div>
-                          </div>
-                          <div className="unit-gp-stat-numbers unit-gp-stat-cell"><span className="unit-gp-stat-percent"><span className="unit-gp-stat-percent-value">
-100
-</span><span className="unit-gp-stat-percent-symbol">%</span></span>
-                          </div>
-                          <div className="unit-gp-stat-numbers unit-gp-stat-cell"><span className="unit-gp-stat-amount"><span className="unit-gp-stat-amount-value unit-gp-stat-amount-current">4,655</span><span className="unit-gp-stat-amount-sep">/</span><span className="unit-gp-stat-amount-value unit-gp-stat-amount-max">4,655</span></span>
-                          </div>
-                          <div className="unit-gp-stat-numbers unit-gp-stat-cell"></div>
-                      </div>
-                      <div className="unit-gp-stat unit-gp-stat-complete">
-                          <div className="unit-gp-stat-label unit-gp-stat-cell">Ability Levels</div>
-                          <div className="unit-gp-stat-cell">
-                              <div className="unit-gp-progress">
-                                  <div className="unit-gp-progress-bar" style={{"width": " 100%"}}></div>
-                              </div>
-                          </div>
-                          <div className="unit-gp-stat-numbers unit-gp-stat-cell"><span className="unit-gp-stat-percent"><span className="unit-gp-stat-percent-value">
-100
-</span><span className="unit-gp-stat-percent-symbol">%</span></span>
-                          </div>
-                          <div className="unit-gp-stat-numbers unit-gp-stat-cell"><span className="unit-gp-stat-amount"><span className="unit-gp-stat-amount-value unit-gp-stat-amount-current">11,295</span><span className="unit-gp-stat-amount-sep">/</span><span className="unit-gp-stat-amount-value unit-gp-stat-amount-max">11,295</span></span>
-                          </div>
-                          <div className="unit-gp-stat-numbers unit-gp-stat-cell"></div>
-                      </div>
-                      <div className="unit-gp-stat unit-gp-stat-complete">
-                          <div className="unit-gp-stat-label unit-gp-stat-cell">Gear Pieces</div>
-                          <div className="unit-gp-stat-cell">
-                              <div className="unit-gp-progress">
-                                  <div className="unit-gp-progress-bar" style={{"width": " 100%"}}></div>
-                              </div>
-                          </div>
-                          <div className="unit-gp-stat-numbers unit-gp-stat-cell"><span className="unit-gp-stat-percent"><span className="unit-gp-stat-percent-value">
-100
-</span><span className="unit-gp-stat-percent-symbol">%</span></span>
-                          </div>
-                          <div className="unit-gp-stat-numbers unit-gp-stat-cell"><span className="unit-gp-stat-amount"><span className="unit-gp-stat-amount-value unit-gp-stat-amount-current">7,515</span><span className="unit-gp-stat-amount-sep">/</span><span className="unit-gp-stat-amount-value unit-gp-stat-amount-max">7,515</span></span>
-                          </div>
-                          <div className="unit-gp-stat-numbers unit-gp-stat-cell"></div>
-                      </div>
-                      <div className="unit-gp-stat unit-gp-stat-complete">
-                          <div className="unit-gp-stat-label unit-gp-stat-cell">Mods</div>
-                          <div className="unit-gp-stat-cell">
-                              <div className="unit-gp-progress">
-                                  <div className="unit-gp-progress-bar" style={{"width": " 100%"}}></div>
-                              </div>
-                          </div>
-                          <div className="unit-gp-stat-numbers unit-gp-stat-cell"><span className="unit-gp-stat-percent"><span className="unit-gp-stat-percent-value">
-100
-</span><span className="unit-gp-stat-percent-symbol">%</span></span>
-                          </div>
-                          <div className="unit-gp-stat-numbers unit-gp-stat-cell"><span className="unit-gp-stat-amount"><span className="unit-gp-stat-amount-value unit-gp-stat-amount-current">1,899</span><span className="unit-gp-stat-amount-sep">/</span><span className="unit-gp-stat-amount-value unit-gp-stat-amount-max">1,899</span></span>
-                          </div>
-                          <div className="unit-gp-stat-numbers unit-gp-stat-cell"></div>
-                      </div>
-                      <div className="unit-gp-stat ">
-                          <div className="unit-gp-stat-label unit-gp-stat-cell">Relic Modifier</div>
-                          <div className="unit-gp-stat-cell">
-                              <div className="unit-gp-progress">
-                                  <div className="unit-gp-progress-bar" style={{"width": " 77.7778%"}}></div>
-                              </div>
-                          </div>
-                          <div className="unit-gp-stat-numbers unit-gp-stat-cell"><span className="unit-gp-stat-percent"><span className="unit-gp-stat-percent-value">
-77
-</span><span className="unit-gp-stat-percent-symbol">%</span></span>
-                          </div>
-                          <div className="unit-gp-stat-numbers unit-gp-stat-cell"><span className="unit-gp-stat-amount"><span className="unit-gp-stat-amount-value unit-gp-stat-amount-current">2,678</span><span className="unit-gp-stat-amount-sep">/</span><span className="unit-gp-stat-amount-value unit-gp-stat-amount-max">3,443</span></span>
-                          </div>
-                          <div className="unit-gp-stat-numbers unit-gp-stat-cell"><span className="unit-gp-stat-diff">765</span></div>
-                      </div>
-                      <div className="unit-gp-stat ">
-                          <div className="unit-gp-stat-label unit-gp-stat-cell">Relic Tier</div>
-                          <div className="unit-gp-stat-cell">
-                              <div className="unit-gp-progress">
-                                  <div className="unit-gp-progress-bar" style={{"width": " 77.7778%"}}></div>
-                              </div>
-                          </div>
-                          <div className="unit-gp-stat-numbers unit-gp-stat-cell"><span className="unit-gp-stat-percent"><span className="unit-gp-stat-percent-value">
-77
-</span><span className="unit-gp-stat-percent-symbol">%</span></span>
-                          </div>
-                          <div className="unit-gp-stat-numbers unit-gp-stat-cell"><span className="unit-gp-stat-amount"><span className="unit-gp-stat-amount-value unit-gp-stat-amount-current">5,292</span><span className="unit-gp-stat-amount-sep">/</span><span className="unit-gp-stat-amount-value unit-gp-stat-amount-max">6,804</span></span>
-                          </div>
-                          <div className="unit-gp-stat-numbers unit-gp-stat-cell"><span className="unit-gp-stat-diff">1,512</span></div>
-                      </div>
-                  </div>
-              </li>
-          </ul>
-          <ul className="list-group media-list media-list-stream m-b-sm">
-              <li className="media list-group-item">
-                  <h4>Stat Mods</h4>
-                  <div className="pc-row pc-intro pc-intro-dark-side">
-                      <div className="pc-statmods">
-                          <div className="collection-char-sets">
-                              <div className="collection-char-sets-values">
-                                  <div className="collection-char-set collection-char-set2 collection-char-set-max" data-toggle="tooltip" data-title="Set Bonus: 15% Offense" data-container="body" data-original-title="" title=""></div>
-                                  <div className="collection-char-set collection-char-set5 collection-char-set-max" data-toggle="tooltip" data-title="Set Bonus: 8% Critical Chance" data-container="body" data-original-title="" title=""></div>
-                              </div>
-                          </div>
-                          <div className="pc-statmod-list">
-                              <div className="pc-statmod-list-sets">
-                                  <div className="pc-statmod-list-set pc-statmod-list-set-1 pc-statmod-list-set-1-max"></div>
-                                  <div className="pc-statmod-list-line pc-statmod-list-line-1 pc-statmod-list-line-1-max"></div>
-                                  <div className="pc-statmod-list-line pc-statmod-list-line-2 pc-statmod-list-line-2-max"></div>
-                                  <div className="pc-statmod-list-line pc-statmod-list-line-3 pc-statmod-list-line-3-max"></div>
-                                  <div className="pc-statmod-list-line pc-statmod-list-line-5 pc-statmod-list-line-5-max"></div>
-                                  <div className="pc-statmod-list-set pc-statmod-list-set-2 pc-statmod-list-set-2-max"></div>
-                                  <div className="pc-statmod-list-line pc-statmod-list-line-4 pc-statmod-list-line-4-max"></div>
-                                  <div className="pc-statmod-list-line pc-statmod-list-line-6 pc-statmod-list-line-6-max"></div>
-                              </div>
-                              <div className="
-statmod
-pc-statmod
-statmod-small
-pc-statmod-slot1
-statmod-t1
-statmod--max-level
-">
-                                  <div className="statmod-summary">
-                                      <div className="statmod-preview"><span className="statmod-pips"><span className="statmod-pip"></span><span className="statmod-pip"></span><span className="statmod-pip"></span><span className="statmod-pip"></span><span className="statmod-pip"></span><span className="statmod-pip"></span></span>
-                                          <div className="
-      statmod-base
-      statmod-base--size-small
-      statmod-base--tier-1
-      statmod-base--slot-1
-      statmod-base--set-2
-    ">
-                                              <div className="
-        statmod-base-inner
-        statmod-base-inner--shapekey-6-1-1
-        statmod-base-inner--iconkey-2-1
-      ">
-                                                  <div className="statmod-base-icon"></div>
-                                                  <div className="statmod-base-shape"></div>
-                                              </div>
-                                          </div><span className="statmod-level">15-E</span></div>
-                                  </div>
-                                  <div className="statmod-full" data-classes="statmod statmod-t1 statmod--max-level">
-                                      <div className="statmod-title">Mk VI-E Offense Transmitter</div>
-                                      <div className="statmod-preview"><span className="statmod-pips"><span className="statmod-pip"></span><span className="statmod-pip"></span><span className="statmod-pip"></span><span className="statmod-pip"></span><span className="statmod-pip"></span><span className="statmod-pip"></span></span>
-                                          <div className="
-      statmod-base
-      statmod-base--tier-1
-      statmod-base--slot-1
-      statmod-base--set-2
-    ">
-                                              <div className="
-        statmod-base-inner
-        statmod-base-inner--shapekey-6-1-1
-        statmod-base-inner--iconkey-2-1
-      ">
-                                                  <div className="statmod-base-icon"></div>
-                                                  <div className="statmod-base-shape"></div>
-                                              </div>
-                                          </div><span className="statmod-level">15-E</span></div>
-                                      <div className="statmod-details">
-                                          <div className="statmod-stats statmod-stats-1">
-                                              <div className="statmod-stats-heading">Primary Stats</div>
-                                              <div className="statmod-stat"><span className="statmod-stat-value">+8.5%</span><span className="statmod-stat-label">Offense</span></div>
-                                          </div>
-                                          <div className="statmod-stats statmod-stats-2">
-                                              <div className="statmod-stats-heading">Secondary Stats</div>
-                                              <div className="statmod-stat "><span className="statmod-stat-value">+2.89%</span><span className="statmod-stat-label">Health</span><span className="statmod-stat-roll"> (2)</span></div>
-                                              <div className="statmod-stat "><span className="statmod-stat-value">+34</span><span className="statmod-stat-label">Offense</span><span className="statmod-stat-roll"> (1)</span></div>
-                                              <div className="statmod-stat "><span className="statmod-stat-value">+9</span><span className="statmod-stat-label">Speed</span><span className="statmod-stat-roll"> (2)</span></div>
-                                              <div className="statmod-stat "><span className="statmod-stat-value">+8.15%</span><span className="statmod-stat-label">Defense</span><span className="statmod-stat-roll"> (3)</span></div>
-                                          </div>
-                                      </div>
-                                  </div>
-                              </div>
-                              <div className="
-statmod
-pc-statmod
-statmod-small
-pc-statmod-slot2
-statmod-t1
-statmod--max-level
-">
-                                  <div className="statmod-summary">
-                                      <div className="statmod-preview"><span className="statmod-pips"><span className="statmod-pip"></span><span className="statmod-pip"></span><span className="statmod-pip"></span><span className="statmod-pip"></span><span className="statmod-pip"></span><span className="statmod-pip"></span></span>
-                                          <div className="
-      statmod-base
-      statmod-base--size-small
-      statmod-base--tier-1
-      statmod-base--slot-2
-      statmod-base--set-2
-    ">
-                                              <div className="
-        statmod-base-inner
-        statmod-base-inner--shapekey-6-2-1
-        statmod-base-inner--iconkey-2-1
-      ">
-                                                  <div className="statmod-base-icon"></div>
-                                                  <div className="statmod-base-shape"></div>
-                                              </div>
-                                          </div><span className="statmod-level">15-E</span></div>
-                                  </div>
-                                  <div className="statmod-full" data-classes="statmod statmod-t1 statmod--max-level">
-                                      <div className="statmod-title">Mk VI-E Offense Receiver</div>
-                                      <div className="statmod-preview"><span className="statmod-pips"><span className="statmod-pip"></span><span className="statmod-pip"></span><span className="statmod-pip"></span><span className="statmod-pip"></span><span className="statmod-pip"></span><span className="statmod-pip"></span></span>
-                                          <div className="
-      statmod-base
-      statmod-base--tier-1
-      statmod-base--slot-2
-      statmod-base--set-2
-    ">
-                                              <div className="
-        statmod-base-inner
-        statmod-base-inner--shapekey-6-2-1
-        statmod-base-inner--iconkey-2-1
-      ">
-                                                  <div className="statmod-base-icon"></div>
-                                                  <div className="statmod-base-shape"></div>
-                                              </div>
-                                          </div><span className="statmod-level">15-E</span></div>
-                                      <div className="statmod-details">
-                                          <div className="statmod-stats statmod-stats-1">
-                                              <div className="statmod-stats-heading">Primary Stats</div>
-                                              <div className="statmod-stat"><span className="statmod-stat-value">+32</span><span className="statmod-stat-label">Speed</span></div>
-                                          </div>
-                                          <div className="statmod-stats statmod-stats-2">
-                                              <div className="statmod-stats-heading">Secondary Stats</div>
-                                              <div className="statmod-stat "><span className="statmod-stat-value">+4.72%</span><span className="statmod-stat-label">Health</span><span className="statmod-stat-roll"> (3)</span></div>
-                                              <div className="statmod-stat "><span className="statmod-stat-value">+9.82%</span><span className="statmod-stat-label">Defense</span><span className="statmod-stat-roll"> (3)</span></div>
-                                              <div className="statmod-stat "><span className="statmod-stat-value">+0.92%</span><span className="statmod-stat-label">Offense</span><span className="statmod-stat-roll"> (1)</span></div>
-                                              <div className="statmod-stat "><span className="statmod-stat-value">+2.94%</span><span className="statmod-stat-label">Tenacity</span><span className="statmod-stat-roll"> (1)</span></div>
-                                          </div>
-                                      </div>
-                                  </div>
-                              </div>
-                              <div className="
-statmod
-pc-statmod
-statmod-small
-pc-statmod-slot3
-statmod-t1
-statmod--max-level
-">
-                                  <div className="statmod-summary">
-                                      <div className="statmod-preview"><span className="statmod-pips"><span className="statmod-pip"></span><span className="statmod-pip"></span><span className="statmod-pip"></span><span className="statmod-pip"></span><span className="statmod-pip"></span><span className="statmod-pip"></span></span>
-                                          <div className="
-      statmod-base
-      statmod-base--size-small
-      statmod-base--tier-1
-      statmod-base--slot-3
-      statmod-base--set-2
-    ">
-                                              <div className="
-        statmod-base-inner
-        statmod-base-inner--shapekey-6-3-1
-        statmod-base-inner--iconkey-2-1
-      ">
-                                                  <div className="statmod-base-icon"></div>
-                                                  <div className="statmod-base-shape"></div>
-                                              </div>
-                                          </div><span className="statmod-level">15-E</span></div>
-                                  </div>
-                                  <div className="statmod-full" data-classes="statmod statmod-t1 statmod--max-level">
-                                      <div className="statmod-title">Mk VI-E Offense Processor</div>
-                                      <div className="statmod-preview"><span className="statmod-pips"><span className="statmod-pip"></span><span className="statmod-pip"></span><span className="statmod-pip"></span><span className="statmod-pip"></span><span className="statmod-pip"></span><span className="statmod-pip"></span></span>
-                                          <div className="
-      statmod-base
-      statmod-base--tier-1
-      statmod-base--slot-3
-      statmod-base--set-2
-    ">
-                                              <div className="
-        statmod-base-inner
-        statmod-base-inner--shapekey-6-3-1
-        statmod-base-inner--iconkey-2-1
-      ">
-                                                  <div className="statmod-base-icon"></div>
-                                                  <div className="statmod-base-shape"></div>
-                                              </div>
-                                          </div><span className="statmod-level">15-E</span></div>
-                                      <div className="statmod-details">
-                                          <div className="statmod-stats statmod-stats-1">
-                                              <div className="statmod-stats-heading">Primary Stats</div>
-                                              <div className="statmod-stat"><span className="statmod-stat-value">+20%</span><span className="statmod-stat-label">Defense</span></div>
-                                          </div>
-                                          <div className="statmod-stats statmod-stats-2">
-                                              <div className="statmod-stats-heading">Secondary Stats</div>
-                                              <div className="statmod-stat "><span className="statmod-stat-value">+24</span><span className="statmod-stat-label">Defense</span><span className="statmod-stat-roll"> (2)</span></div>
-                                              <div className="statmod-stat "><span className="statmod-stat-value">+3.46%</span><span className="statmod-stat-label">Tenacity</span><span className="statmod-stat-roll"> (2)</span></div>
-                                              <div className="statmod-stat "><span className="statmod-stat-value">+15</span><span className="statmod-stat-label">Speed</span><span className="statmod-stat-roll"> (3)</span></div>
-                                              <div className="statmod-stat "><span className="statmod-stat-value">+34</span><span className="statmod-stat-label">Offense</span><span className="statmod-stat-roll"> (1)</span></div>
-                                          </div>
-                                      </div>
-                                  </div>
-                              </div>
-                              <div className="
-statmod
-pc-statmod
-statmod-small
-pc-statmod-slot4
-statmod-t1
-statmod--max-level
-">
-                                  <div className="statmod-summary">
-                                      <div className="statmod-preview"><span className="statmod-pips"><span className="statmod-pip"></span><span className="statmod-pip"></span><span className="statmod-pip"></span><span className="statmod-pip"></span><span className="statmod-pip"></span><span className="statmod-pip"></span></span>
-                                          <div className="
-      statmod-base
-      statmod-base--size-small
-      statmod-base--tier-1
-      statmod-base--slot-4
-      statmod-base--set-5
-    ">
-                                              <div className="
-        statmod-base-inner
-        statmod-base-inner--shapekey-6-4-1
-        statmod-base-inner--iconkey-5-1
-      ">
-                                                  <div className="statmod-base-icon"></div>
-                                                  <div className="statmod-base-shape"></div>
-                                              </div>
-                                          </div><span className="statmod-level">15-E</span></div>
-                                  </div>
-                                  <div className="statmod-full" data-classes="statmod statmod-t1 statmod--max-level">
-                                      <div className="statmod-title">Mk VI-E Crit Chance Holo-Array</div>
-                                      <div className="statmod-preview"><span className="statmod-pips"><span className="statmod-pip"></span><span className="statmod-pip"></span><span className="statmod-pip"></span><span className="statmod-pip"></span><span className="statmod-pip"></span><span className="statmod-pip"></span></span>
-                                          <div className="
-      statmod-base
-      statmod-base--tier-1
-      statmod-base--slot-4
-      statmod-base--set-5
-    ">
-                                              <div className="
-        statmod-base-inner
-        statmod-base-inner--shapekey-6-4-1
-        statmod-base-inner--iconkey-5-1
-      ">
-                                                  <div className="statmod-base-icon"></div>
-                                                  <div className="statmod-base-shape"></div>
-                                              </div>
-                                          </div><span className="statmod-level">15-E</span></div>
-                                      <div className="statmod-details">
-                                          <div className="statmod-stats statmod-stats-1">
-                                              <div className="statmod-stats-heading">Primary Stats</div>
-                                              <div className="statmod-stat"><span className="statmod-stat-value">+8.5%</span><span className="statmod-stat-label">Offense</span></div>
-                                          </div>
-                                          <div className="statmod-stats statmod-stats-2">
-                                              <div className="statmod-stats-heading">Secondary Stats</div>
-                                              <div className="statmod-stat "><span className="statmod-stat-value">+813</span><span className="statmod-stat-label">Health</span><span className="statmod-stat-roll"> (2)</span></div>
-                                              <div className="statmod-stat "><span className="statmod-stat-value">+14</span><span className="statmod-stat-label">Defense</span><span className="statmod-stat-roll"> (1)</span></div>
-                                              <div className="statmod-stat "><span className="statmod-stat-value">+20</span><span className="statmod-stat-label">Speed</span><span className="statmod-stat-roll"> (4)</span></div>
-                                              <div className="statmod-stat "><span className="statmod-stat-value">+1.9%</span><span className="statmod-stat-label">Critical Chance</span><span className="statmod-stat-roll"> (1)</span></div>
-                                          </div>
-                                      </div>
-                                  </div>
-                              </div>
-                              <div className="
-statmod
-pc-statmod
-statmod-small
-pc-statmod-slot5
-statmod-t1
-statmod--max-level
-">
-                                  <div className="statmod-summary">
-                                      <div className="statmod-preview"><span className="statmod-pips"><span className="statmod-pip"></span><span className="statmod-pip"></span><span className="statmod-pip"></span><span className="statmod-pip"></span><span className="statmod-pip"></span><span className="statmod-pip"></span></span>
-                                          <div className="
-      statmod-base
-      statmod-base--size-small
-      statmod-base--tier-1
-      statmod-base--slot-5
-      statmod-base--set-2
-    ">
-                                              <div className="
-        statmod-base-inner
-        statmod-base-inner--shapekey-6-5-1
-        statmod-base-inner--iconkey-2-1
-      ">
-                                                  <div className="statmod-base-icon"></div>
-                                                  <div className="statmod-base-shape"></div>
-                                              </div>
-                                          </div><span className="statmod-level">15-E</span></div>
-                                  </div>
-                                  <div className="statmod-full" data-classes="statmod statmod-t1 statmod--max-level">
-                                      <div className="statmod-title">Mk VI-E Offense Data-Bus</div>
-                                      <div className="statmod-preview"><span className="statmod-pips"><span className="statmod-pip"></span><span className="statmod-pip"></span><span className="statmod-pip"></span><span className="statmod-pip"></span><span className="statmod-pip"></span><span className="statmod-pip"></span></span>
-                                          <div className="
-      statmod-base
-      statmod-base--tier-1
-      statmod-base--slot-5
-      statmod-base--set-2
-    ">
-                                              <div className="
-        statmod-base-inner
-        statmod-base-inner--shapekey-6-5-1
-        statmod-base-inner--iconkey-2-1
-      ">
-                                                  <div className="statmod-base-icon"></div>
-                                                  <div className="statmod-base-shape"></div>
-                                              </div>
-                                          </div><span className="statmod-level">15-E</span></div>
-                                      <div className="statmod-details">
-                                          <div className="statmod-stats statmod-stats-1">
-                                              <div className="statmod-stats-heading">Primary Stats</div>
-                                              <div className="statmod-stat"><span className="statmod-stat-value">+24%</span><span className="statmod-stat-label">Protection</span></div>
-                                          </div>
-                                          <div className="statmod-stats statmod-stats-2">
-                                              <div className="statmod-stats-heading">Secondary Stats</div>
-                                              <div className="statmod-stat "><span className="statmod-stat-value">+6.25%</span><span className="statmod-stat-label">Health</span><span className="statmod-stat-roll"> (4)</span></div>
-                                              <div className="statmod-stat "><span className="statmod-stat-value">+13</span><span className="statmod-stat-label">Defense</span><span className="statmod-stat-roll"> (1)</span></div>
-                                              <div className="statmod-stat "><span className="statmod-stat-value">+1%</span><span className="statmod-stat-label">Offense</span><span className="statmod-stat-roll"> (1)</span></div>
-                                              <div className="statmod-stat "><span className="statmod-stat-value">+3.93%</span><span className="statmod-stat-label">Tenacity</span><span className="statmod-stat-roll"> (2)</span></div>
-                                          </div>
-                                      </div>
-                                  </div>
-                              </div>
-                              <div className="
-statmod
-pc-statmod
-statmod-small
-pc-statmod-slot6
-statmod-t1
-statmod--max-level
-">
-                                  <div className="statmod-summary">
-                                      <div className="statmod-preview"><span className="statmod-pips"><span className="statmod-pip"></span><span className="statmod-pip"></span><span className="statmod-pip"></span><span className="statmod-pip"></span><span className="statmod-pip"></span><span className="statmod-pip"></span></span>
-                                          <div className="
-      statmod-base
-      statmod-base--size-small
-      statmod-base--tier-1
-      statmod-base--slot-6
-      statmod-base--set-5
-    ">
-                                              <div className="
-        statmod-base-inner
-        statmod-base-inner--shapekey-6-6-1
-        statmod-base-inner--iconkey-5-1
-      ">
-                                                  <div className="statmod-base-icon"></div>
-                                                  <div className="statmod-base-shape"></div>
-                                              </div>
-                                          </div><span className="statmod-level">15-E</span></div>
-                                  </div>
-                                  <div className="statmod-full" data-classes="statmod statmod-t1 statmod--max-level">
-                                      <div className="statmod-title">Mk VI-E Crit Chance Multiplexer</div>
-                                      <div className="statmod-preview"><span className="statmod-pips"><span className="statmod-pip"></span><span className="statmod-pip"></span><span className="statmod-pip"></span><span className="statmod-pip"></span><span className="statmod-pip"></span><span className="statmod-pip"></span></span>
-                                          <div className="
-      statmod-base
-      statmod-base--tier-1
-      statmod-base--slot-6
-      statmod-base--set-5
-    ">
-                                              <div className="
-        statmod-base-inner
-        statmod-base-inner--shapekey-6-6-1
-        statmod-base-inner--iconkey-5-1
-      ">
-                                                  <div className="statmod-base-icon"></div>
-                                                  <div className="statmod-base-shape"></div>
-                                              </div>
-                                          </div><span className="statmod-level">15-E</span></div>
-                                      <div className="statmod-details">
-                                          <div className="statmod-stats statmod-stats-1">
-                                              <div className="statmod-stats-heading">Primary Stats</div>
-                                              <div className="statmod-stat"><span className="statmod-stat-value">+8.5%</span><span className="statmod-stat-label">Offense</span></div>
-                                          </div>
-                                          <div className="statmod-stats statmod-stats-2">
-                                              <div className="statmod-stats-heading">Secondary Stats</div>
-                                              <div className="statmod-stat "><span className="statmod-stat-value">+1.8%</span><span className="statmod-stat-label">Health</span><span className="statmod-stat-roll"> (1)</span></div>
-                                              <div className="statmod-stat "><span className="statmod-stat-value">+4.42%</span><span className="statmod-stat-label">Protection</span><span className="statmod-stat-roll"> (2)</span></div>
-                                              <div className="statmod-stat "><span className="statmod-stat-value">+10</span><span className="statmod-stat-label">Speed</span><span className="statmod-stat-roll"> (2)</span></div>
-                                              <div className="statmod-stat "><span className="statmod-stat-value">+1855</span><span className="statmod-stat-label">Protection</span><span className="statmod-stat-roll"> (3)</span></div>
-                                          </div>
-                                      </div>
-                                  </div>
-                              </div>
+                  </li>
+              </ul>
+              <ul className="list-group media-list media-list-stream m-b-sm">
+                  <li className="media list-group-item">
+                      <h4>Stat Mods</h4>
+                      <div className="pc-row pc-intro pc-intro-dark-side">
+                          <div className="pc-statmods">
+
+                            <div className="collection-char-sets">
+                                <div className="collection-char-sets-values">
+                                    <div className="collection-char-set collection-char-set2 collection-char-set-max" data-toggle="tooltip" data-title="Set Bonus: 15% Offense" data-container="body" data-original-title="" title=""></div>
+                                    <div className="collection-char-set collection-char-set5 collection-char-set-max" data-toggle="tooltip" data-title="Set Bonus: 8% Critical Chance" data-container="body" data-original-title="" title=""></div>
+                                </div>
+                            </div>
+                            <div className="pc-statmod-list">
+                                <div className="pc-statmod-list-sets">
+                                    <div className="pc-statmod-list-set pc-statmod-list-set-1 pc-statmod-list-set-1-max"></div>
+                                    <div className="pc-statmod-list-line pc-statmod-list-line-1 pc-statmod-list-line-1-max"></div>
+                                    <div className="pc-statmod-list-line pc-statmod-list-line-2 pc-statmod-list-line-2-max"></div>
+                                    <div className="pc-statmod-list-line pc-statmod-list-line-3 pc-statmod-list-line-3-max"></div>
+                                    <div className="pc-statmod-list-line pc-statmod-list-line-5 pc-statmod-list-line-5-max"></div>
+                                    <div className="pc-statmod-list-set pc-statmod-list-set-2 pc-statmod-list-set-2-max"></div>
+                                    <div className="pc-statmod-list-line pc-statmod-list-line-4 pc-statmod-list-line-4-max"></div>
+                                    <div className="pc-statmod-list-line pc-statmod-list-line-6 pc-statmod-list-line-6-max"></div>
+                                </div>
+                                {unit.mods.map(mod => (
+                                  <>
+                                    <div className={`"statmod pc-statmod statmod-small pc-statmod-slot${mod.slot} statmod-t${mod.tier} statmod--max-level"`}>
+                                        <div className="statmod-summary">
+                                            <div className="statmod-preview"><span className="statmod-pips"><span className="statmod-pip"></span><span className="statmod-pip"></span><span className="statmod-pip"></span><span className="statmod-pip"></span><span className="statmod-pip"></span><span className="statmod-pip"></span></span>
+                                                <div className={`"
+                                                  statmod-base
+                                                  statmod-base--size-small
+                                                  statmod-base--tier-${mod.tier}
+                                                  statmod-base--slot-${mod.slot}
+                                                  statmod-base--set-${mod.set}
+                                                "`}>
+                                                    <div className="
+                                                      statmod-base-inner
+                                                      statmod-base-inner--shapekey-6-1-1
+                                                      statmod-base-inner--iconkey-2-1
+                                                    ">
+                                                        <div className="statmod-base-icon"></div>
+                                                        <div className="statmod-base-shape"></div>
+                                                    </div>
+                                                </div><span className="statmod-level">15-E</span></div>
+                                        </div>
+                                        <div className="statmod-full" data-classes="statmod statmod-t1 statmod--max-level">
+                                            <div className="statmod-title">Mk VI-E Offense Transmitter</div>
+                                            <div className="statmod-preview"><span className="statmod-pips"><span className="statmod-pip"></span><span className="statmod-pip"></span><span className="statmod-pip"></span><span className="statmod-pip"></span><span className="statmod-pip"></span><span className="statmod-pip"></span></span>
+                                                <div className={`"
+                                                  statmod-base
+                                                  statmod-base--tier-${mod.tier}
+                                                  statmod-base--slot-${mod.slot}
+                                                  statmod-base--set-${mod.set}
+                                                "`}>
+                                                    <div className="
+                                                      statmod-base-inner
+                                                      statmod-base-inner--shapekey-6-1-1
+                                                      statmod-base-inner--iconkey-2-1
+                                                    ">
+                                                        <div className="statmod-base-icon"></div>
+                                                        <div className="statmod-base-shape"></div>
+                                                    </div>
+                                                </div><span className="statmod-level">{mod.level}-E</span></div>
+                                            <div className="statmod-details">
+                                                <div className="statmod-stats statmod-stats-1">
+                                                    <div className="statmod-stats-heading">Primary Stats</div>
+                                                    <div className="statmod-stat"><span className="statmod-stat-value">+{mod.primaryStat.value}%</span><span className="statmod-stat-label">Offense</span></div>
+                                                </div>
+                                                <div className="statmod-stats statmod-stats-2">
+                                                    <div className="statmod-stats-heading">Secondary Stats</div>
+                                                    {
+                                                      mod.secondaryStat.map(stat => (
+                                                        <>
+                                                          <div className="statmod-stat "><span className="statmod-stat-value">+{stat.value}%</span><span className="statmod-stat-label">Health</span><span className="statmod-stat-roll"> ({stat.roll})</span></div>
+                                                        </>
+                                                      ))
+                                                    }
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                  </>
+                                ))
+                                }
+
+                            </div>
+
                           </div>
                       </div>
-                  </div>
-              </li>
-          </ul>
-          <ul className="list-group media-list media-list-stream m-b-sm">
-              <li className="media list-group-item">
-                  <h4>Skills</h4>
-                  <div className="pc-skills">
-                      <div className="pc-skills-list">
-                          <div className="pc-skills-list-item">
-                              <div className="pc-skill  pc-skill--maxed">
-                                  <a className="pc-skill-link" href="/characters/darth-revan/#lacerate">
-                                      <div className="pc-skill-levels" data-toggle="tooltip" data-container="body" data-title="Level 8 of 8 (MAXED)" data-original-title="" title="">
-                                        <span className="pc-skill-levels-pip pc-skill-levels-pip-active"></span>
-                                        <span className="pc-skill-levels-pip pc-skill-levels-pip-active"></span>
-                                        <span className="pc-skill-levels-pip pc-skill-levels-pip-active"></span>
-                                        <span className="pc-skill-levels-pip pc-skill-levels-pip-active"></span>
-                                        <span className="pc-skill-levels-pip pc-skill-levels-pip-active"></span>
-                                        <span className="pc-skill-levels-pip pc-skill-levels-pip-active"></span>
-                                        <span className="pc-skill-levels-pip pc-skill-levels-pip-active"></span>
-                                        <span className="pc-skill-levels-pip pc-skill-levels-pip-max pc-skill-levels-pip-active"></span>
-                                      </div>
-                                      <div className="pc-skill-ability">
-                                        <span className="char-ability">
-                                          <img className="char-ability-img" src="https://swgoh.gg/game-asset/a/basicskill_DARTHREVAN/" alt="Lacerate" title="Lacerate" />
-                                        </span>
-                                      </div>
-                                      <div className="pc-skill-name">Lacerate</div>
-                                      <div className="pc-skill__material">
-                                        <img className="pc-skill__material-img" src="https://swgoh.gg/static/img/assets/tex.skill_pentagon_gold.png" data-toggle="tooltip" data-placement="top" title="" data-original-title="Omega" />
-                                      </div>
-                                  </a>
-                              </div>
-                          </div>
-                          <div className="pc-skills-list-item">
-                              <div className="pc-skill  pc-skill--maxed">
-                                  <a className="pc-skill-link" href="/characters/darth-revan/#force-storm">
-                                      <div className="pc-skill-levels" data-toggle="tooltip" data-container="body" data-title="Level 8 of 8 (MAXED)" data-original-title="" title="">
-                                        <span className="pc-skill-levels-pip pc-skill-levels-pip-active"></span>
-                                        <span className="pc-skill-levels-pip pc-skill-levels-pip-active"></span>
-                                        <span className="pc-skill-levels-pip pc-skill-levels-pip-active"></span>
-                                        <span className="pc-skill-levels-pip pc-skill-levels-pip-active"></span>
-                                        <span className="pc-skill-levels-pip pc-skill-levels-pip-active"></span>
-                                        <span className="pc-skill-levels-pip pc-skill-levels-pip-active"></span>
-                                        <span className="pc-skill-levels-pip pc-skill-levels-pip-active"></span>
-                                        <span className="pc-skill-levels-pip pc-skill-levels-pip-max pc-skill-levels-pip-active"></span>
-                                      </div>
-                                      <div className="pc-skill-ability">
-                                        <span className="char-ability">
-                                          <img className="char-ability-img" src="https://swgoh.gg/game-asset/a/specialskill_DARTHREVAN01/" alt="Force Storm" title="Force Storm" />
-                                        </span>
-                                      </div>
-                                      <div className="pc-skill-name">Force Storm</div>
-                                      <div className="pc-skill__material">
-                                        <img className="pc-skill__material-img" src="https://swgoh.gg/static/img/assets/tex.skill_pentagon_gold.png" data-toggle="tooltip" data-placement="top" title="" data-original-title="Omega" />
-                                      </div>
-                                  </a>
-                              </div>
-                          </div>
-                          <div className="pc-skills-list-item">
-                              <div className="pc-skill  pc-skill--maxed">
-                                  <a className="pc-skill-link" href="https://swgoh.gg/characters/darth-revan/#insanity">
-                                      <div className="pc-skill-levels" data-toggle="tooltip" data-container="body" data-title="Level 8 of 8 (MAXED)" data-original-title="" title="">
-                                        <span className="pc-skill-levels-pip pc-skill-levels-pip-active"></span>
-                                        <span className="pc-skill-levels-pip pc-skill-levels-pip-active"></span>
-                                        <span className="pc-skill-levels-pip pc-skill-levels-pip-active"></span>
-                                        <span className="pc-skill-levels-pip pc-skill-levels-pip-active"></span>
-                                        <span className="pc-skill-levels-pip pc-skill-levels-pip-active"></span>
-                                        <span className="pc-skill-levels-pip pc-skill-levels-pip-active"></span>
-                                        <span className="pc-skill-levels-pip pc-skill-levels-pip-active"></span>
-                                        <span className="pc-skill-levels-pip pc-skill-levels-pip-max pc-skill-levels-pip-active"></span>
-                                      </div>
-                                      <div className="pc-skill-ability">
-                                        <span className="char-ability">
-                                          <img className="char-ability-img" src="https://swgoh.gg/game-asset/a/specialskill_DARTHREVAN02/" alt="Insanity" title="Insanity" />
-                                        </span>
-                                      </div>
-                                      <div className="pc-skill-name">Insanity</div>
-                                      <div className="pc-skill__material">
-                                        <img className="pc-skill__material-img" src="//swgoh.gg/static/img/assets/tex.skill_pentagon_gold.png" data-toggle="tooltip" data-placement="top" title="" data-original-title="Omega" />
-                                      </div>
-                                  </a>
-                              </div>
-                          </div>
-                          <div className="pc-skills-list-item">
-                              <div className="pc-skill  pc-skill--maxed">
-                                  <a className="pc-skill-link" href="https://swgoh.gg/characters/darth-revan/#lord-of-the-sith">
-                                      <div className="pc-skill-levels" data-toggle="tooltip" data-container="body" data-title="Level 8 of 8 (MAXED)" data-original-title="" title="">
-                                        <span className="pc-skill-levels-pip pc-skill-levels-pip-active"></span>
-                                        <span className="pc-skill-levels-pip pc-skill-levels-pip-active"></span>
-                                        <span className="pc-skill-levels-pip pc-skill-levels-pip-active"></span>
-                                        <span className="pc-skill-levels-pip pc-skill-levels-pip-active"></span>
-                                        <span className="pc-skill-levels-pip pc-skill-levels-pip-active"></span>
-                                        <span className="pc-skill-levels-pip pc-skill-levels-pip-active"></span>
-                                        <span className="pc-skill-levels-pip pc-skill-levels-pip-active"></span>
-                                        <span className="pc-skill-levels-pip pc-skill-levels-pip-max pc-skill-levels-pip-zeta pc-skill-levels-pip-active"></span>
-                                      </div>
-                                      <div className="pc-skill-ability">
-                                        <span className="char-ability">
-                                          <img className="char-ability-img" src="https://swgoh.gg/game-asset/a/leaderskill_DARTHREVAN/" alt="Lord of the Sith" title="Lord of the Sith" />
-                                        </span>
-                                      </div>
-                                      <div className="pc-skill-name">Lord of the Sith</div>
-                                      <div className="pc-skill__material">
-                                        <img className="pc-skill__material-img" src="//swgoh.gg/static/img/assets/tex.skill_zeta.png" data-toggle="tooltip" data-placement="top" title="" data-original-title="Zeta" />
-                                      </div>
-                                  </a>
-                              </div>
-                          </div>
-                          <div className="pc-skills-list-item">
-                              <div className="pc-skill  pc-skill--maxed">
-                                  <a className="pc-skill-link" href="/characters/darth-revan/#conqueror">
-                                      <div className="pc-skill-levels" data-toggle="tooltip" data-container="body" data-title="Level 8 of 8 (MAXED)" data-original-title="" title="">
-                                        <span className="pc-skill-levels-pip pc-skill-levels-pip-active"></span>
-                                        <span className="pc-skill-levels-pip pc-skill-levels-pip-active"></span>
-                                        <span className="pc-skill-levels-pip pc-skill-levels-pip-active"></span>
-                                        <span className="pc-skill-levels-pip pc-skill-levels-pip-active"></span>
-                                        <span className="pc-skill-levels-pip pc-skill-levels-pip-active"></span>
-                                        <span className="pc-skill-levels-pip pc-skill-levels-pip-active"></span>
-                                        <span className="pc-skill-levels-pip pc-skill-levels-pip-active"></span>
-                                        <span className="pc-skill-levels-pip pc-skill-levels-pip-max pc-skill-levels-pip-zeta pc-skill-levels-pip-active"></span>
-                                      </div>
-                                      <div className="pc-skill-ability">
-                                        <span className="char-ability">
-                                          <img className="char-ability-img" src="https://swgoh.gg/game-asset/a/uniqueskill_DARTHREVAN01/" alt="Conqueror" title="Conqueror" />
-                                        </span>
-                                      </div>
-                                      <div className="pc-skill-name">Conqueror</div>
-                                      <div className="pc-skill__material">
-                                        <img className="pc-skill__material-img" src="https://swgoh.gg/static/img/assets/tex.skill_zeta.png" data-toggle="tooltip" data-placement="top" title="" data-original-title="Zeta" />
-                                      </div>
-                                  </a>
-                              </div>
-                          </div>
-                          <div className="pc-skills-list-item">
-                              <div className="pc-skill  pc-skill--maxed">
-                                <a className="pc-skill-link" href="https://swgoh.gg/characters/darth-revan/#villain">
-                                  <div className="pc-skill-levels" data-toggle="tooltip" data-container="body" data-title="Level 8 of 8 (MAXED)" data-original-title="" title="">
-                                    <span className="pc-skill-levels-pip pc-skill-levels-pip-active"></span>
-                                    <span className="pc-skill-levels-pip pc-skill-levels-pip-active"></span>
-                                    <span className="pc-skill-levels-pip pc-skill-levels-pip-active"></span>
-                                    <span className="pc-skill-levels-pip pc-skill-levels-pip-active"></span>
-                                    <span className="pc-skill-levels-pip pc-skill-levels-pip-active"></span>
-                                    <span className="pc-skill-levels-pip pc-skill-levels-pip-active"></span>
-                                    <span className="pc-skill-levels-pip pc-skill-levels-pip-active"></span>
-                                    <span className="pc-skill-levels-pip pc-skill-levels-pip-max pc-skill-levels-pip-zeta pc-skill-levels-pip-active"></span>
+                  </li>
+              </ul>
+              <ul className="list-group media-list media-list-stream m-b-sm">
+                  <li className="media list-group-item">
+                      <h4>Skills</h4>
+                      <div className="pc-skills">
+                          <div className="pc-skills-list">
+                            {
+                              unit.skills.map(skill => (
+                                <>
+                                  <div className="pc-skills-list-item">
+                                    <div className="pc-skill  pc-skill--maxed">
+                                        <a className="pc-skill-link" href="/characters/darth-revan/#lacerate">
+                                            <div className="pc-skill-levels" data-toggle="tooltip" data-container="body" data-title="Level 8 of 8 (MAXED)" data-original-title="" title="">
+                                              <span className="pc-skill-levels-pip pc-skill-levels-pip-active"></span>
+                                              <span className="pc-skill-levels-pip pc-skill-levels-pip-active"></span>
+                                              <span className="pc-skill-levels-pip pc-skill-levels-pip-active"></span>
+                                              <span className="pc-skill-levels-pip pc-skill-levels-pip-active"></span>
+                                              <span className="pc-skill-levels-pip pc-skill-levels-pip-active"></span>
+                                              <span className="pc-skill-levels-pip pc-skill-levels-pip-active"></span>
+                                              <span className="pc-skill-levels-pip pc-skill-levels-pip-active"></span>
+                                              <span className="pc-skill-levels-pip pc-skill-levels-pip-max pc-skill-levels-pip-active"></span>
+                                            </div>
+                                            <div className="pc-skill-ability">
+                                              <span className="char-ability">
+                                                <img className="char-ability-img" src="https://swgoh.gg/game-asset/a/basicskill_DARTHREVAN/" alt={skill.nameKey} title={skill.nameKey} />
+                                              </span>
+                                            </div>
+                                            <div className="pc-skill-name">{skill.nameKey}</div>
+                                            <div className="pc-skill__material">
+                                              <img className="pc-skill__material-img" src="https://swgoh.gg/static/img/assets/tex.skill_pentagon_gold.png" data-toggle="tooltip" data-placement="top" title="" data-original-title="Omega" />
+                                            </div>
+                                        </a>
+                                    </div>
                                   </div>
-                                  <div className="pc-skill-ability">
-                                    <span className="char-ability">
-                                      <img className="char-ability-img" src="https://swgoh.gg/game-asset/a/uniqueskill_DARTHREVAN02/" alt="Villain" title="Villain" />
-                                    </span>
-                                  </div>
-                                  <div className="pc-skill-name">Villain</div>
-                                  <div className="pc-skill__material">
-                                    <img className="pc-skill__material-img" src="https://swgoh.gg/static/img/assets/tex.skill_zeta.png" data-toggle="tooltip" data-placement="top" title="" data-original-title="Zeta" />
-                                  </div>
-                                </a>
-                              </div>
+                                </>
+                              ))
+                            }
                           </div>
                       </div>
-                  </div>
-              </li>
-          </ul>
-      </div>
-    </>
+                  </li>
+              </ul>
+          </div>
+        </>
+      )
+    ))
+
   );
 }
 
@@ -1121,8 +702,8 @@ const SortModal = () => {
                   </div>
                   <div className="modal-footer">
                       <a href="/p/388591888/characters/?sort_direction=asc" type="button" className="btn btn-default pull-left">
-  Toggle <span className="icon icon-align-vertical-middle"></span>
-  </a>
+                        Toggle <span className="icon icon-align-vertical-middle"></span>
+                      </a>
                       <button type="button" className="btn btn-danger" data-dismiss="modal">Close</button>
                   </div>
               </div>
@@ -1817,71 +1398,51 @@ const FilterModal = () => {
   )
 }
 
-const CharacterProfile = ({ }) => {
-  const squadsList = localStorage.getItem('squadsList');
-  const squadsJSON = JSON.parse(squadsList);
+const CharacterProfile = (props) => {
+  let { id } = useParams();
   const playerRoster = localStorage.getItem('playerRoster');
   const rosterJSON = JSON.parse(playerRoster);
+  const playerName = localStorage.getItem('playerName');
+  const playerNameJSON = JSON.parse(playerName);
 
-    var guildTokenRefreshTime = 1613064798516;
-    var remainingTokens = 1;
-    var remainingGuildTokens = 0;
-    var tokenRefreshTime = 1613064798521;
-
-    var hasGuildPermission = false;
-
-
-    var hasToolsAccess = false;
-
-
-    var isPremium = false;
-
-
-  const eventPhases = []
-  var phaseObject;
-  var squadsObject;
-
-  useEffect(() => {
-    const playerData = localStorage.getItem('playerData')
-    //console.log(`playerData: ${playerData}`)
-    squadsJSON.map((squad, index) => {
-      //console.log(`squadsJSON map: ${JSON.stringify(squad.events.phase, undefined, 2)}`)
-      eventPhases.push(squad.events.phase)
-      phaseObject = squad.events.phase
-    })
-
-    rosterJSON.map((r) => {
-      console.log(`r: ${r}`)
-    })
-
-    // eventPhases.map((phase, index) => (
-    //   console.log(`eventPhases map: ${JSON.stringify(phase, undefined, 2)} - index: ${index}`)
-    // ))
-
-    rosterJSON.forEach(unit => console.log(`unit: ${JSON.stringify(unit.defId)}`))
-    // const filteredRoster = rosterJSON.filter(unit => unit.length < 5)
-    // console.log(`filteredRoster: ${filteredRoster}`)
-    //phaseObject.forEach(phase => phase.squads.map(team => team.team.map(t => console.log(`phaseObject forEach: ${JSON.stringify(t)}`))))
-  });
+  console.warn(props)
 
   return (
     <>
       <Container id="content">
-
         <Row>
           <Col>
             <NavBar />
           </Col>
         </Row>
         <Row>
-          <div className="container p-t-md">
-            <BreadCrumb />
-            <div className="content-container">
-              <Aside />
-              <CharactersGrid />
-              <SidebarRight />
-            </div>
-          </div>
+          {
+            rosterJSON.map(unit => (
+              unit.id === id && (
+                <>
+                  <div className="container p-t-md">
+                    <BreadCrumb
+                      playerName={playerNameJSON}
+                      characterName={unit.nameKey}
+                    />
+                    <div className="content-container">
+                      <Aside
+                        charId={unit.id}
+                        charNameKey={unit.nameKey}
+                        charLevel={unit.level}
+                        charZetas={unit.skills.filter(s => s.isZeta === true).length}
+                        charRelic={Object.values(unit.relic) - 2}
+                      />
+                      <CharactersGrid roster={rosterJSON} />
+                      <SidebarRight />
+                    </div>
+                  </div>
+                </>
+              )
+            ))
+
+          }
+
         </Row>
         <Row>
           <Col>

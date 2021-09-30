@@ -10,6 +10,7 @@ import Header from '../../containers/Header/Header.js';
 import Overlay from '../../containers/Overlay/Overlay.js';
 import NavBar from '../../containers/NavBar/NavBar.js';
 import DataTable from '../../containers/Table/Table.js';
+import CharacterProfile from '../../containers/CharacterProfile/CharacterProfile.js';
 
 import './Dashboard.css'
 
@@ -18,10 +19,6 @@ const playerUrl  = '/swgoh/players';
 const statsUrl = 'https://crinolo-swgoh.glitch.me/baseStats/api/';
 const charStatsApi = 'https://crinolo-swgoh.glitch.me/statCalc/api/characters';
 const shipStatsApi = 'https://crinolo-swgoh.glitch.me/statCalc/api/ships';
-
-
-
-
 
 const Star = ({ marked, starId }) => {
   return (
@@ -552,8 +549,6 @@ class Dashboard extends React.Component {
                 isLoaded={isLoaded}
               />
               <Header
-                accessToken={accessToken ? accessToken : ''}
-                gameVersion={latestVersion ? latestVersion : ''}
                 playerName={playerName ? playerName : ''}
                 galacticPower={galacticPower ? galacticPower : ''}
                 guildName={guildName ? guildName : ''}
@@ -576,7 +571,7 @@ class Dashboard extends React.Component {
                     <Col className="character-box" xs={6} sm={3} md={3} lg={2}>
                       <div className="collection-char collection-char-dark-side">
                         <div className="player-char-portrait char-portrait-full char-portrait-full-gear-t13 char-portrait-full-alignment-dark-side">
-                          <a href="/p/388591888/characters/darth-revan" className="char-portrait-full-link" rel="nofollow">
+                          <a href={`/character-profile/${r.id}`} className="char-portrait-full-link">
                             <StarRating value={r.rarity} />
                             <Image className="char-portrait-full-img initial loading" src="https://game-assets.swgoh.gg/tex.charui_sithrevan.png" alt={`${r.nameKey}`} height="80" width="80" roundedCircle />
 
@@ -589,14 +584,14 @@ class Dashboard extends React.Component {
                         </div>
                         <div className="collection-char-gp" data-toggle="tooltip" data-container="body" title="" data-original-title={`Power ${r.gp} 35,308 / 37,585`}>
                           <ProgressBar now={60} />
-                          
+
                           <div className="collection-char-gp-label">
                             <span className="collection-char-gp-label-value">93</span>
                             <span className="collection-char-gp-label-percent">%</span>
                           </div>
                         </div>
                         <div className="collection-char-name">
-                          <a className="collection-char-name-link" href="/p/388591888/characters/darth-revan" rel="nofollow">
+                          <a className="collection-char-name-link" href={`/character-profile/${r.id}`}>
                             {r.nameKey}
                           </a>
                         </div>
