@@ -40,6 +40,7 @@ const StarRating = ({ value }) => {
   };
   return (
     <div
+      className="star-rating"
       onMouseOut={() => hoverOver(null)}
       onClick={e => setRating(e.target.getAttribute('data-star-id') || rating)}
       onMouseOver={hoverOver}
@@ -82,14 +83,13 @@ const Characters = () => {
                       <div className="collection-char collection-char-dark-side">
                         <div className="player-char-portrait char-portrait-full char-portrait-full-gear-t13 char-portrait-full-alignment-dark-side">
                           <Link to={`/character-profile/${r.id}`} className="char-portrait-full-link">
-                            <StarRating value={r.rarity} />
+
                             <Image className="char-portrait-full-img initial loading" src="https://game-assets.swgoh.gg/tex.charui_sithrevan.png" alt={`${r.nameKey}`} height="80" width="80" roundedCircle />
 
                             <div className="char-portrait-zetas">{r.skills.filter(s => s.isZeta === true).length}</div>
                             <div className="char-portrait-full-level">{r.level}</div>
                             <div className="char-portrait-full-relic">{Object.values(r.relic) - 2}</div>
-                            <div>Gear: {r.gear}</div>
-                            <div>GP: {r.gp}</div>
+                            <StarRating value={r.rarity} />
                           </Link>
                         </div>
                         <div className="collection-char-gp" data-toggle="tooltip" data-container="body" title="" data-original-title={`Power ${r.gp} 35,308 / 37,585`}>

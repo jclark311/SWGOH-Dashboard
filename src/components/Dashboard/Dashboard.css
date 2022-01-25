@@ -34,8 +34,24 @@ small {
   justify-content: center;
 }
 
+.char-portrait-full {
+    position: relative;
+    width: 84px;
+    height: 84px;
+    background-color: #000;
+    box-shadow: 0 0 0 2px #555;
+    border-radius: 50%
+}
+
 .player-char-portrait img {
   border: 3px solid red;
+}
+
+.char-portrait-full-img {
+    width: 84px;
+    height: 84px;
+    border-radius: 50%;
+    background-color: #000;
 }
 
 .player-char-portrait .char-portrait-zetas {
@@ -54,14 +70,23 @@ small {
 
 .char-portrait-full-level {
   position: absolute;
+  bottom: -5px;
+  left: 50%;
+  transform: translate(-50%);
+  z-index: 4;
+  padding: 0 5px;
   border-radius: 50%;
   border: 2px solid white;
   height: 25px;
   width: 32px;
+  font-size: 12px;
   font-weight: bold;
   background: black;
   color: white;
   line-height: 2;
+  text-align: center;
+  box-shadow: 0 1px 2px rgb(0 0 0 / 50%);
+  text-shadow: -1px -1px 0 #000, 2px -1px 0 #000, 2px 2px 0 #000, -1px 2px 0 #000, 2px 3px 0 #000, 1px 3px 0 #000, 2px 3px 0 #000;
 }
 
 .char-portrait-full-relic {
@@ -72,17 +97,176 @@ small {
   font-weight: bold;
   background: purple;
   color: white;
+  background-size: 100%;
+  bottom: 3px;
+  right: -3px;
+  line-height: 22px;
+  text-shadow: -1px -1px 0 #000, 2px -1px 0 #000, 2px 2px 0 #000, -1px 2px 0 #000, 2px 3px 0 #000, 1px 3px 0 #000, 2px 3px 0 #000;
+}
+
+.char-portrait-full-gear-t13.char-portrait-full-alignment-dark-side .char-portrait-full-relic {
+    background-position: 0 -100%;
+}
+
+.char-portrait-full-relic, .char-portrait-full-zeta {
+    position: absolute;
+    z-index: 4;
+    color: #fff;
+    text-align: center;
+    font-size: 13px;
+    font-weight: 700;
 }
 
 .player-char-portrait .star-rating {
   margin: 5px 0;
 }
 
+.collection-char.collection-char-show-mods {
+    height: 375px;
+    overflow: visible
+}
+
+.collection-char.collection-char-show-mods .collection-char-statmods {
+    display: block
+}
+
+.collection-char-missing .char-portrait,
+.collection-char-missing .collection-char-statmods,
+.collection-char-missing .unit-portrait {
+    opacity: .5
+}
+
+.collection-char-name {
+    display: table;
+    line-height: 1;
+    text-align: center;
+    font-weight: 700;
+    width: 100%
+}
+
+.collection-char-name-link {
+    color: #333;
+    display: table-cell;
+    vertical-align: top
+}
+
+.collection-char-char-statmods {
+    display: none
+}
+
+.collection-char-sets {
+    text-align: center;
+    white-space: nowrap;
+    clear: both
+}
+
+.collection-char-sets-heading {
+    font-weight: 700;
+    font-size: 14px;
+    color: #555;
+    border-bottom: 2px solid #eaeaea;
+    margin-bottom: 5px
+}
+
+.collection-char-set {
+    border: 3px solid #ccc;
+    width: 30px;
+    height: 30px;
+    display: inline-block;
+    border-radius: 50%;
+    margin-left: 6px;
+    background: 0 0 transparent url(https://swgoh.gg/static/img/ui/statmod-sets.png) no-repeat;
+    background-size: 60px
+}
+
+.collection-char-set:first-child {
+    margin-left: 0
+}
+
+.collection-char-set-max {
+    border-color: #cce84b;
+    background-color: #6b7b21;
+    box-shadow: 0 0 2px #6b7b21
+}
+
+.collection-char-set-max.collection-char-set1 {
+    background-position: -3px -3px
+}
+
+.collection-char-set-max.collection-char-set2 {
+    background-position: -3px -33px
+}
+
+.collection-char-set-max.collection-char-set3 {
+    background-position: -3px -63px
+}
+
+.collection-char-set-max.collection-char-set4 {
+    background-position: -3px -93px
+}
+
+.collection-char-set-max.collection-char-set5 {
+    background-position: -3px -123px
+}
+
+.collection-char-set-max.collection-char-set6 {
+    background-position: -3px -153px
+}
+
+.collection-char-set-max.collection-char-set7 {
+    background-position: -3px -183px
+}
+
+.collection-char-set-max.collection-char-set8 {
+    background-position: -3px -213px
+}
+
+.collection-char-set-complete {
+    border-color: #60eeed;
+    background-color: #0eaba9;
+    box-shadow: 0 0 2px #0eaba9
+}
+
+.collection-char-set-complete.collection-char-set1 {
+    background-position: -33px -3px
+}
+
+.collection-char-set-complete.collection-char-set2 {
+    background-position: -33px -33px
+}
+
+.collection-char-set-complete.collection-char-set3 {
+    background-position: -33px -63px
+}
+
+.collection-char-set-complete.collection-char-set4 {
+    background-position: -33px -93px
+}
+
+.collection-char-set-complete.collection-char-set5 {
+    background-position: -33px -123px
+}
+
+.collection-char-set-complete.collection-char-set6 {
+    background-position: -33px -153px
+}
+
+.collection-char-set-complete.collection-char-set7 {
+    background-position: -33px -183px
+}
+
+.collection-char-set-complete.collection-char-set8 {
+    background-position: -33px -213px
+}
+
 .collection-char-gp {
-  display: flex;
-  justify-content: space-evenly;
-  -ms-align-items: center;
-  align-items: center;
+    display: flex;
+    align-items: center;
+    width: 50px;
+    line-height: 1;
+    margin: 20px auto 5px;
+    position: relative;
+    justify-content: space-evenly;
 }
 
 .collection-char-gp .progress {
@@ -91,9 +275,134 @@ small {
 
 .collection-char-gp-label {
   display: flex;
+    padding-left: 3px;
+    font-size: 10px;
+    font-weight: 700;
+    position: absolute;
+    bottom: 0;
+}
+
+.collection-char-gp-label-percent {
+    font-size: 8px
+}
+
+.collection-char-gp-progress {
+    background: #ccc;
+    height: 5px;
+    border-radius: 10px;
+    overflow: hidden;
+    flex: 1
+}
+
+.collection-char-gp-progress-bar {
+    height: 100%;
+    background: #617a88;
+    border-radius: 10px
+}
+
+.collection-char .player-char-portrait {
+    margin: 15px auto 10px;
+}
+
+.collection-char .char-portrait {
+    margin: 15px auto 10px;
+    width: 80px;
+    display: block
+}
+
+.collection-char .collection-char-statmods {
+    display: none
+}
+
+.collection-char .pc-statmod-list {
+    margin: 0 auto
 }
 
 .star {
   color: #ff9933;
   cursor: pointer;
+}
+
+@-webkit-keyframes progress-bar-stripes {
+    0% {
+        background-position: 40px 0
+    }
+
+    to {
+        background-position: 0 0
+    }
+}
+
+@keyframes progress-bar-stripes {
+    0% {
+        background-position: 40px 0
+    }
+
+    to {
+        background-position: 0 0
+    }
+}
+
+.progress {
+    overflow: hidden;
+    height: 22px;
+    margin-bottom: 10px;
+    background-color: #f5f5f5;
+    border-radius: 4px;
+    box-shadow: inset 0 1px 2px rgba(0,0,0,.1)
+}
+
+.progress-bar {
+    float: left;
+    width: 0;
+    height: 100%;
+    font-size: 12px;
+    line-height: 22px;
+    color: #fff;
+    text-align: center;
+    background-color: #3097d1;
+    box-shadow: inset 0 -1px 0 rgba(0,0,0,.15);
+    transition: width .6s ease
+}
+
+.progress-bar-striped,.progress-striped .progress-bar {
+    background-image: linear-gradient(45deg,hsla(0,0%,100%,.15) 25%,transparent 0,transparent 50%,hsla(0,0%,100%,.15) 0,hsla(0,0%,100%,.15) 75%,transparent 0,transparent);
+    background-size: 40px 40px
+}
+
+.progress-bar.active,.progress.active .progress-bar {
+    -webkit-animation: progress-bar-stripes 2s linear infinite;
+    animation: progress-bar-stripes 2s linear infinite
+}
+
+.progress-bar-success {
+    background-color: #4eb76e
+}
+
+.progress-striped .progress-bar-success {
+    background-image: linear-gradient(45deg,hsla(0,0%,100%,.15) 25%,transparent 0,transparent 50%,hsla(0,0%,100%,.15) 0,hsla(0,0%,100%,.15) 75%,transparent 0,transparent)
+}
+
+.progress-bar-info {
+    background-color: #8eb4cb
+}
+
+.progress-striped .progress-bar-info {
+    background-image: linear-gradient(45deg,hsla(0,0%,100%,.15) 25%,transparent 0,transparent 50%,hsla(0,0%,100%,.15) 0,hsla(0,0%,100%,.15) 75%,transparent 0,transparent)
+}
+
+.progress-bar-warning {
+    background-color: #cbb956
+}
+
+.progress-striped .progress-bar-warning {
+    background-image: linear-gradient(45deg,hsla(0,0%,100%,.15) 25%,transparent 0,transparent 50%,hsla(0,0%,100%,.15) 0,hsla(0,0%,100%,.15) 75%,transparent 0,transparent)
+}
+
+.progress-bar-danger {
+    background-color: #bf5329
+}
+
+.progress-striped .progress-bar-danger {
+    background-image: linear-gradient(45deg,hsla(0,0%,100%,.15) 25%,transparent 0,transparent 50%,hsla(0,0%,100%,.15) 0,hsla(0,0%,100%,.15) 75%,transparent 0,transparent)
 }

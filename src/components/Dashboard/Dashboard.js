@@ -9,8 +9,6 @@ import Image from 'react-bootstrap/Image';
 import Header from '../../containers/Header/Header.js';
 import Overlay from '../../containers/Overlay/Overlay.js';
 import NavBar from '../../containers/NavBar/NavBar.js';
-import DataTable from '../../containers/Table/Table.js';
-import CharacterProfile from '../../containers/CharacterProfile/CharacterProfile.js';
 
 import './Dashboard.css'
 
@@ -497,7 +495,7 @@ class Dashboard extends React.Component {
                             <Image className="char-portrait-full-img initial loading" src="https://game-assets.swgoh.gg/tex.charui_sithrevan.png" alt={`${r.nameKey}`} height="80" width="80" roundedCircle />
 
                             <div className="char-portrait-zetas">{r.skills.filter(s => s.isZeta === true).length}</div>
-                            <div className="char-portrait-full-relic">{Object.values(r.relic)}</div>
+                            <div className="char-portrait-full-relic">{Object.values(r.relic) - 2}</div>
                             <div className="char-portrait-full-level">{r.level}</div>
 
                             <StarRating value={r.rarity} />

@@ -14,7 +14,7 @@ const Header = ({ onClick, playerName, galacticPower, guildName, hasError }) => 
   }, [])
 
   return (
-    <Jumbotron>
+    <div id="header">
       <Row>
         <Col xs={12} md={12} lg={12}>
           <h1> SWGOH Dashboard </h1>
@@ -35,15 +35,9 @@ const Header = ({ onClick, playerName, galacticPower, guildName, hasError }) => 
                 <p>{guildName}</p>
               </div> : null
           }
-          <div>
-            <span>Has error: {JSON.stringify(hasError)}</span>
-            <div>
-              <Button onClick={onClick}>Get Player Profile</Button>
-            </div>
-          </div>
         </Col>
       </Row>
-    </Jumbotron>
+    </div>
   );
 }
 
