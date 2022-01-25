@@ -22,7 +22,7 @@ const shipStatsApi = 'https://crinolo-swgoh.glitch.me/statCalc/api/ships';
 
 const Star = ({ marked, starId }) => {
   return (
-    <span data-star-id={starId} className="star" role="button">
+    <span data-star-id={starId} className={`${marked ? "star" : ""}`} role="button">
       {marked ? '\u2605' : '\u2606'}
     </span>
   );
@@ -40,6 +40,7 @@ const StarRating = ({ value }) => {
   };
   return (
     <div
+      className="star-rating"
       onMouseOut={() => hoverOver(null)}
       onClick={e => setRating(e.target.getAttribute('data-star-id') || rating)}
       onMouseOver={hoverOver}
@@ -55,86 +56,6 @@ const StarRating = ({ value }) => {
   );
 };
 
-const CharacterGrid = ({ data, propertyNames }) => {
-  let filteredData = data.map(v =>
-    Object.keys(v)
-      .filter(k => propertyNames.includes(k))
-      .reduce((acc, key) => ((acc[key] = v[key]), acc), {})
-  );
-  return (
-    <table>
-      <thead>
-        <tr>
-          {propertyNames.map(val => (
-            <th key={`h_${val}`}>{val}</th>
-          ))}
-        </tr>
-      </thead>
-      <tbody>
-        {filteredData.map((val, i) => (
-          <tr key={`i_${i}`}>
-            {propertyNames.map(p => (
-              <td key={`i_${i}_${p}`}>{val[p]}</td>
-            ))}
-          </tr>
-        ))}
-      </tbody>
-    </table>
-
-  )
-}
-
-const LegendaryToons = ({ data, propertyNames, name, zetas, stars, gear, level, ready }) => {
-  let filteredData = data.map(v =>
-    Object.keys(v)
-      .filter(k => propertyNames.includes(k))
-      .reduce((acc, key) => ((acc[key] = v[key]), acc), {})
-  );
-  return (
-    <div className="row">
-      <div className="col-xs-12" style={{"position":"-o-sticky","top":"25px","zIndex":"2"}}>
-        <h3>LEGENDARY CHARACTERS<br /><small>Requirements - 7 Star - Gear 12 - Level 85</small></h3>
-      </div>
-      <div className="col-md-6 tablestart notmainteam">
-        <Table responsive className="table table-striped table-bordered">
-          <thead>
-            <tr>
-              <th width="30%">Name</th>
-              <th width="28%">Zetas</th>
-              <th width="8%">⭐</th>
-              <th width="8%">G</th>
-              <th width="8%">L</th>
-              <th width="8%">Ready?</th>
-            </tr>
-          </thead>
-          <tbody>
-
-            <tr className="GRANDADMIRALTHRAWN">
-              <td className="toonnamecolumn">{name}</td>
-              <td style={{"padding":"0px"}} className="success">
-                <table className="table">
-                  <tbody>
-                    <tr>
-                      <td className="danger leaderskill_GRANDADMIRALTHRAWN">Legendary Strategist</td>
-                    </tr>
-                    <tr>
-                      <td className="success uniqueskill_GRANDADMIRALTHRAWN01">Ebb and Flow</td>
-                    </tr>
-                  </tbody>
-                </table>
-              </td>
-              <td className="success rarity">7</td>
-              <td className="success">12</td>
-              <td className="success">85</td>
-              <td className="completeunit danger"><span className="glyphicon glyphicon-remove" /></td>
-            </tr>
-
-          </tbody>
-        </Table>
-      </div>
-    </div>
-  )
-}
 
 class Dashboard extends React.Component {
 
@@ -572,14 +493,14 @@ class Dashboard extends React.Component {
                       <div className="collection-char collection-char-dark-side">
                         <div className="player-char-portrait char-portrait-full char-portrait-full-gear-t13 char-portrait-full-alignment-dark-side">
                           <a href={`/character-profile/${r.id}`} className="char-portrait-full-link">
-                            <StarRating value={r.rarity} />
+
                             <Image className="char-portrait-full-img initial loading" src="https://game-assets.swgoh.gg/tex.charui_sithrevan.png" alt={`${r.nameKey}`} height="80" width="80" roundedCircle />
 
                             <div className="char-portrait-zetas">{r.skills.filter(s => s.isZeta === true).length}</div>
-                            <div className="char-portrait-full-level">{r.level}</div>
                             <div className="char-portrait-full-relic">{Object.values(r.relic)}</div>
-                            <div>Gear: {r.gear}</div>
-                            <div>GP: {r.gp}</div>
+                            <div className="char-portrait-full-level">{r.level}</div>
+
+                            <StarRating value={r.rarity} />
                           </a>
                         </div>
                         <div className="collection-char-gp" data-toggle="tooltip" data-container="body" title="" data-original-title={`Power ${r.gp} 35,308 / 37,585`}>
