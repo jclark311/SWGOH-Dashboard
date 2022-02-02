@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { withRouter } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import Container from 'react-bootstrap/Container';
 import Col from 'react-bootstrap/Col';
 import Row from 'react-bootstrap/Row';
@@ -19,7 +19,7 @@ const PlayerProfile = () => {
 
   return (
     <>
-      <Container id="content">
+      <Container id="content" className="playerProfile">
         <Row>
           <Col>
             <Header />
@@ -75,4 +75,4 @@ const PlayerProfile = () => {
 
 }
 
-export default withRouter(PlayerProfile);
+export default PlayerProfile;

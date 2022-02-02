@@ -1,15 +1,14 @@
 import React, {Component} from 'react';
 import {
   NavLink,
-  useRouteMatch,
-  withRouter
+  useMatch
 } from "react-router-dom";
 import Nav from 'react-bootstrap/Nav';
 
 import './NavBar.css';
 
 function TabNavBar({ label, to, activeOnlyWhenExact }) {
-  let match = useRouteMatch({
+  let match = useMatch({
     path: to,
     exact: activeOnlyWhenExact
   });
@@ -49,4 +48,4 @@ class NavBar extends Component {
 }
 
 
-export default withRouter(NavBar);
+export default NavBar;

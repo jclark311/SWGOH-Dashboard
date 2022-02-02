@@ -411,8 +411,6 @@ class Dashboard extends React.Component {
    async getEventSchedule() {
      return await this.fetchAPI( '/swgoh/events' )
      .then(json => console.log(`json: ${JSON.stringify(json, undefined, 2)}`) )
-
-
    }
 
    /**
@@ -497,11 +495,12 @@ class Dashboard extends React.Component {
                             <div className="char-portrait-zetas">{r.skills.filter(s => s.isZeta === true).length}</div>
                             <div className="char-portrait-full-relic">{Object.values(r.relic) - 2}</div>
                             <div className="char-portrait-full-level">{r.level}</div>
-
                             <StarRating value={r.rarity} />
+
                           </a>
                         </div>
                         <div className="collection-char-gp" data-toggle="tooltip" data-container="body" title="" data-original-title={`Power ${r.gp} 35,308 / 37,585`}>
+
                           <ProgressBar now={60} />
 
                           <div className="collection-char-gp-label">

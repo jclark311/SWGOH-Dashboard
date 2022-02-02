@@ -1,12 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import {
-  BrowserRouter as Router,
-  Switch,
+  BrowserRouter,
   Route,
-  Link,
-  useParams,
-  useLocation,
-  withRouter
+  Link
 } from "react-router-dom";
 import ProgressBar from 'react-bootstrap/ProgressBar';
 import Image from 'react-bootstrap/Image';
@@ -75,39 +71,36 @@ const Characters = () => {
 
         <Row id="character-grid">
           {
-            JSON.parse(playerRoster).map((r) => (
+            JSON.parse(playerRoster).map((r, index) => (
               r.combatType === 1 && (
                 <>
-                  <Router>
-                    <Col className="character-box" xs={6} sm={3} md={3} lg={2}>
-                      <div className="collection-char collection-char-dark-side">
-                        <div className="player-char-portrait char-portrait-full char-portrait-full-gear-t13 char-portrait-full-alignment-dark-side">
-                          <Link to={`/character-profile/${r.id}`} className="char-portrait-full-link">
+                  <Col className="character-box" xs={6} sm={3} md={3} lg={2}>
+                    <div className="collection-char collection-char-dark-side">
+                      <div className="player-char-portrait char-portrait-full char-portrait-full-gear-t13 char-portrait-full-alignment-dark-side">
+                        <Link to={`/character-profile/${r.id}`} className="char-portrait-full-link">
+                          <Image className="char-portrait-full-img initial loading" src="https://game-assets.swgoh.gg/tex.charui_sithrevan.png" alt={`${r.nameKey}`} height="80" width="80" roundedCircle />
 
-                            <Image className="char-portrait-full-img initial loading" src="https://game-assets.swgoh.gg/tex.charui_sithrevan.png" alt={`${r.nameKey}`} height="80" width="80" roundedCircle />
+                          <div className="char-portrait-zetas">{r.skills.filter(s => s.isZeta === true).length}</div>
+                          <div className="char-portrait-full-level">{r.level}</div>
+                          <div className="char-portrait-full-relic">{Object.values(r.relic) - 2}</div>
+                          <StarRating value={r.rarity} />
+                        </Link>
+                      </div>
+                      <div className="collection-char-gp" data-toggle="tooltip" data-container="body" title="" data-original-title={`Power ${r.gp} 35,308 / 37,585`}>
+                        <ProgressBar now={60} />
 
-                            <div className="char-portrait-zetas">{r.skills.filter(s => s.isZeta === true).length}</div>
-                            <div className="char-portrait-full-level">{r.level}</div>
-                            <div className="char-portrait-full-relic">{Object.values(r.relic) - 2}</div>
-                            <StarRating value={r.rarity} />
-                          </Link>
-                        </div>
-                        <div className="collection-char-gp" data-toggle="tooltip" data-container="body" title="" data-original-title={`Power ${r.gp} 35,308 / 37,585`}>
-                          <ProgressBar now={60} />
-
-                          <div className="collection-char-gp-label">
-                            <span className="collection-char-gp-label-value">93</span>
-                            <span className="collection-char-gp-label-percent">%</span>
-                          </div>
-                        </div>
-                        <div className="collection-char-name">
-                          <Link to={`/character-profile/${r.id}`} className="collection-char-name-link">
-                            {r.nameKey}
-                          </Link>
+                        <div className="collection-char-gp-label">
+                          <span className="collection-char-gp-label-value">93</span>
+                          <span className="collection-char-gp-label-percent">%</span>
                         </div>
                       </div>
-                    </Col>
-                  </Router>
+                      <div className="collection-char-name">
+                        <Link to={`/character-profile/${r.id}`} className="collection-char-name-link">
+                          {r.nameKey}
+                        </Link>
+                      </div>
+                    </div>
+                  </Col>
                 </>
               )
             ))
@@ -119,4 +112,4 @@ const Characters = () => {
   )
 }
 
-export default withRouter(Characters);
+export default Characters;

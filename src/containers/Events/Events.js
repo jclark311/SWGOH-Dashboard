@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { Link, withRouter, useHistory } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import { ImCross, ImCheckmark } from 'react-icons/im';
-import Jumbotron from 'react-bootstrap/Jumbotron';
 import Container from 'react-bootstrap/Container';
 import Col from 'react-bootstrap/Col';
 import Row from 'react-bootstrap/Row';
@@ -136,4 +135,4 @@ const Events = () => {
 
 }
 
-export default withRouter(Events);
+export default Events;

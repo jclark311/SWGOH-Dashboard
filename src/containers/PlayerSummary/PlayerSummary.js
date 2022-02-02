@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { withRouter } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import Container from 'react-bootstrap/Container';
 import Col from 'react-bootstrap/Col';
 import Row from 'react-bootstrap/Row';
@@ -8,15 +8,16 @@ import Table from 'react-bootstrap/Table';
 import Header from '../../containers/Header/Header.js';
 import NavBar from '../../containers/NavBar/NavBar.js';
 
-const PlayerSummary = () => {
+import './PlayerSummary.css';
 
+const PlayerSummary = () => {
   const squadsList = localStorage.getItem('squadsList');
   const squadsJSON = JSON.parse(squadsList);
   const eventPhases = []
 
   return (
     <>
-      <Container id="content">
+      <Container id="content" className="playerSummary">
         <Row>
           <Col>
             <Header />
@@ -31,7 +32,6 @@ const PlayerSummary = () => {
           <Col>
             {
               eventPhases.map((phase, index) => (
-
                 phase.map(p => (
                   <>
                     <Row>
@@ -41,7 +41,7 @@ const PlayerSummary = () => {
                     </Row>
                     <Row>
                       <Col>
-                          <div style={{"position":"-o-sticky","top":"25px","zIndex":"2"}}>
+                          <div className="table-banner" style={{"position":"-o-sticky","top":"25px","zIndex":"2"}}>
                             <h3>phase.name<br /><small>Requirements - phase.squads.level Star - Gear phase.squads.gear - Level squad.psummary.level</small></h3>
                           </div>
 
@@ -188,8 +188,6 @@ const PlayerSummary = () => {
                     </Row>
                   </>
                 ))
-
-
               ))
             }
           </Col>
@@ -207,7 +205,7 @@ const PlayerSummary = () => {
                   {unit.psummary.phase.map((p) => (
                     p.squads.map(s => (
                       <>
-                        <div className="col-xs-12" style={{"position":"-o-sticky","top":"25px","zIndex":"2"}}>
+                        <div className="col-xs-12 table-banner">
                           <h3>{p.name}<br /><small>Requirements - {unit.psummary.rarity} Star - Gear {unit.psummary.gear} - Level {unit.psummary.level}</small></h3>
                         </div>
 
@@ -265,4 +263,4 @@ const PlayerSummary = () => {
   );
 }
 
-export default withRouter(PlayerSummary);
+export default PlayerSummary;

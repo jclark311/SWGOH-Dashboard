@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { BrowserRouter as Router, Link, withRouter, useHistory, useLocation, useParams } from 'react-router-dom';
+import { BrowserRouter as Router, Link, useHistory, useLocation, useParams } from 'react-router-dom';
 import Container from 'react-bootstrap/Container';
 import Col from 'react-bootstrap/Col';
 import Row from 'react-bootstrap/Row';
@@ -1457,4 +1457,4 @@ const CharacterProfile = (props) => {
 
 }
 
-export default withRouter(CharacterProfile);
+export default CharacterProfile;

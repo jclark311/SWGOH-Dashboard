@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { Link, withRouter, useHistory } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import { ImCross, ImCheckmark } from 'react-icons/im';
-import Jumbotron from 'react-bootstrap/Jumbotron';
 import Container from 'react-bootstrap/Container';
 import Col from 'react-bootstrap/Col';
 import Row from 'react-bootstrap/Row';
@@ -23,6 +22,56 @@ import Overlay from '../../containers/Overlay/Overlay.js';
 import NavBar from '../../containers/NavBar/NavBar.js';
 
 import './Checklist.css';
+
+const Todo = (todo, onChange) => {
+  return (
+    <div>
+      <input type="checkbox" onChange={(e) => onChange(e)} /><span>{todo}</span>
+    </div>
+  )
+}
+
+const TodoList = () => {
+  const [todos, setTodos] = useState([])
+  const [todo, setTodo] = useState({})
+  const [isChecked, setIsChecked] = useState(false)
+
+  const handleCheck = e => {
+    console.log(e)
+    // setIsChecked(e.target)
+  }
+
+  const handleInput = e => {
+    console.log(e)
+  }
+
+  const addTodo = e => {
+    console.log(e)
+  }
+
+  const remove = e => {
+    console.log(e)
+    // todos.splice()
+  }
+
+  return (
+    <div>
+      <input type="text" onChange={e => handleInput(e)} value={todo} /><button onClick={e => addTodo(e)}>Add</button>
+
+      {
+        todos && todos.map((_todo, index) => (
+          <ul className="todo-list">
+            <li className="todo-item"><Todo todo={_todo} onChange={(e) => handleCheck(e)} /></li>
+          </ul>
+        ))
+      }
+
+      <button>remove completed</button>
+    </div>
+  )
+
+
+}
 
 const BreadCrumb = () => {
   return (
@@ -52,6 +101,7 @@ const Checklist = ({ }) => {
         <Row>
           <Col>
             <NavBar />
+            <TodoList />
           </Col>
         </Row>
         {
@@ -422,4 +472,4 @@ const Checklist = ({ }) => {
 
 }
 
-export default withRouter(Checklist);
+export default Checklist;
